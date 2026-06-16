@@ -1,0 +1,18 @@
+# Dependencias / herramientas locales (no se publican)
+node_modules/
+package-lock.json
+package.json
+
+# Scripts auxiliares de captura/render
+_capture.mjs
+_render.mjs
+_preview-full.png
+
+# Imágenes de otro proyecto (MOCA) que estaban en la carpeta
+_desktop_co.png
+_desktop_co2.png
+_phone_co.png
+_tortas.png
+
+# Config local del editor
+.claude/
