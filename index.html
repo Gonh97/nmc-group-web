@@ -3,283 +3,551 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NMC · Grupo empresarial</title>
-<meta name="description" content="Grupo NMC — empresas de ingeniería, servicios petroleros e industria en Venezuela.">
-<link rel="icon" type="image/svg+xml" href="assets/logo-nmc.svg">
+<title>Nicolás Mangieri</title>
+<meta name="description" content="Diez empresas en ingeniería, seguros, salud, educación y deporte. Portafolio de Nicolás Mangieri.">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{margin:0;background:#0A0A0B}
-  ::selection{background:#C2A878;color:#0A0A0B}
+  body{margin:0;background:#0A0A0B;color:#F6F4F1;font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  ::selection{background:#F6F4F1;color:#0A0A0B}
   a{color:inherit}
+  img{display:block;max-width:100%}
+  .wrap{max-width:1240px;margin:0 auto;padding-left:clamp(20px,4vw,48px);padding-right:clamp(20px,4vw,48px)}
+  .mono{font-family:'IBM Plex Mono',monospace;letter-spacing:.14em;text-transform:uppercase}
+
+  /* ---- Marca. Proporciones tomadas de logo-nmc-horizontal.svg ---- */
   .mark{display:block}
-  .card-img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top}
-  .card-fallback{display:none;width:100%;aspect-ratio:16/10;align-items:center;justify-content:center;background:linear-gradient(135deg,#141312,#0F0F0E);font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:#5A5750;text-align:center;padding:0 24px}
-  .card-img.is-broken{display:none}
-  .card-img.is-broken + .card-fallback{display:flex}
+  .logo-h{display:inline-flex;align-items:center;font-size:8.5px}
+  .logo-h .mark{flex:none;height:4.508em;width:auto;aspect-ratio:1301.29/711.87}
+  .logo-h .bar{flex:none;width:max(1px,.025em);height:2.667em;background:currentColor;opacity:.5;margin:0 .667em 0 .738em}
+  .logo-h .name{font-family:'Playfair Display',serif;font-weight:400;font-size:1em;line-height:1.25;letter-spacing:.217em;text-indent:.217em;text-transform:uppercase;white-space:nowrap}
+  @media (max-width:560px){ .logo-h .bar,.logo-h .name{display:none} }
+  .logo-v{--w:min(440px,72vw);display:flex;flex-direction:column;align-items:center;gap:calc(var(--w) * .105)}
+  .logo-v .mark{width:var(--w);height:auto;aspect-ratio:1301.29/711.87}
+  .logo-v .name{font-family:'Playfair Display',serif;font-weight:400;font-size:calc(var(--w) * .078);letter-spacing:.25em;text-indent:.25em;text-transform:uppercase;white-space:nowrap;line-height:1}
+
+  /* ---- Nav ---- */
+  header{position:sticky;top:0;z-index:50;background:rgba(10,10,11,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid #1C1B19}
+  header .wrap{padding-top:18px;padding-bottom:18px;display:flex;align-items:center;justify-content:space-between}
+  header nav{display:flex;align-items:center;gap:clamp(14px,3vw,36px);font-size:12px}
+  header nav a{text-decoration:none;color:#A9A49A;transition:color .25s}
+  header nav a:hover{color:#F6F4F1}
+  header nav a.btn{color:#F6F4F1;border:1px solid #2E2C28;padding:9px 16px;border-radius:100px;transition:border-color .25s,background .25s,color .25s}
+  header nav a.btn:hover{border-color:#F6F4F1;background:#F6F4F1;color:#0A0A0B}
+  @media (max-width:520px){ header nav a.solo-ancho{display:none} }
+
+  /* ---- Hero ---- */
+  #top{position:relative;min-height:clamp(520px,94vh,940px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(30px,4.5vw,46px);padding:clamp(80px,12vw,150px) clamp(20px,4vw,48px);text-align:center;
+    background-image:radial-gradient(62% 66% at 50% 44%,rgba(10,10,11,.86) 0%,rgba(10,10,11,.58) 58%,rgba(10,10,11,.24) 100%),linear-gradient(180deg,rgba(10,10,11,.9) 0%,rgba(10,10,11,.2) 26%,rgba(10,10,11,.72) 82%,#0A0A0B 100%),url('assets/hero.jpg');
+    background-size:cover;background-position:center;background-repeat:no-repeat}
+  #top .claim{margin:0;max-width:32ch;font-size:clamp(15px,1.7vw,19px);line-height:1.6;color:#A9A49A}
+  #top .cue{text-decoration:none;font-size:12px;color:#7E7B73;display:inline-flex;align-items:center;gap:10px;transition:color .25s}
+  #top .cue:hover{color:#F6F4F1}
+
+  /* ---- Titulos de seccion ---- */
+  .titulo{margin:0;font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(36px,5.6vw,74px);line-height:1.02;letter-spacing:-.018em}
+  .seccion{padding:clamp(64px,9vw,130px) 0;scroll-margin-top:86px}
+  .cabecera{display:flex;align-items:baseline;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:clamp(30px,4vw,52px)}
+  .cabecera .conteo{font-size:12px;color:#5A5750}
+
+  /* ---- Sectores ---- */
+  .sectores{display:grid;grid-template-columns:1fr;gap:0}
+  @media (min-width:960px){ .sectores{grid-template-columns:minmax(260px,.72fr) 1.28fr;column-gap:clamp(40px,6vw,110px)} .sectores > .titulo{grid-row:span 5;align-self:start;position:sticky;top:120px} }
+  .sector{display:grid;grid-template-columns:auto 1fr;column-gap:clamp(20px,3vw,40px);padding:clamp(24px,3vw,34px) 0;border-top:1px solid #1C1B19}
+  .sector:last-child{border-bottom:1px solid #1C1B19}
+  .sector .num{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;color:#5A5750;padding-top:9px}
+  .sector h3{margin:0;font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(20px,2.2vw,27px);letter-spacing:-.005em}
+  .sector p{margin:12px 0 0;font-size:15.5px;line-height:1.65;color:#A9A49A;max-width:56ch}
+  .sector .lista{display:flex;flex-wrap:wrap;gap:12px 26px;margin-top:20px}
+  .sector .lista a{font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.05em;color:#A9A49A;text-decoration:none;border-bottom:1px solid #2E2C28;padding-bottom:5px;transition:color .25s,border-color .25s}
+  .sector .lista a:hover{color:#F6F4F1;border-color:#F6F4F1}
+
+  /* ---- Carrusel de empresas ---- */
+  .carrusel{position:relative}
+  .pista{display:flex;gap:clamp(14px,1.6vw,22px);overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-ms-overflow-style:none;padding-bottom:4px}
+  .pista::-webkit-scrollbar{display:none}
+  .card{flex:0 0 clamp(240px,30%,340px);scroll-snap-align:start;display:block;text-decoration:none;background:#111110;border:1px solid #1C1B19;transition:border-color .3s}
+  .card:hover{border-color:#2E2C28}
+  .card-img{display:block;aspect-ratio:4/3;overflow:hidden;background:#0F0F0E}
+  .card-img img{width:100%;height:100%;object-fit:cover;object-position:top center;filter:grayscale(1) brightness(.92) contrast(1.02);transition:filter .55s ease,transform .9s ease}
+  .card:hover .card-img img{filter:grayscale(0) brightness(1) contrast(1);transform:scale(1.04)}
+  .card-pie{display:block;padding:16px 18px 18px;border-top:1px solid #1C1B19}
+  .card-pie .n{display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;color:#5A5750}
+  .card-pie .t{display:block;margin-top:8px;font-family:'Playfair Display',serif;font-size:19px;line-height:1.2;color:#F6F4F1}
+  .card-pie .s{display:block;margin-top:7px;font-size:12.5px;color:#7E7B73}
+  .car-nav{display:flex;align-items:center;gap:10px;margin-top:clamp(20px,2.6vw,30px)}
+  .car-btn{width:42px;height:42px;border-radius:100px;border:1px solid #2E2C28;background:transparent;color:#A9A49A;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .25s,color .25s,background .25s}
+  .car-btn:hover{border-color:#F6F4F1;color:#0A0A0B;background:#F6F4F1}
+  .car-puntos{display:flex;gap:7px;margin-left:auto}
+  .punto{width:6px;height:6px;border-radius:50%;background:#2E2C28;transition:background .3s,transform .3s}
+  .punto.on{background:#F6F4F1;transform:scale(1.25)}
+
+  /* ---- Fichas ---- */
+  .fichas{display:flex;flex-direction:column;gap:clamp(60px,9vw,130px)}
+  .ficha{scroll-margin-top:110px;display:grid;grid-template-columns:1fr;gap:clamp(26px,4vw,46px);align-items:center}
+  @media (min-width:900px){
+    .ficha{grid-template-columns:1fr 1fr;gap:clamp(40px,5vw,92px)}
+    .ficha:nth-child(even) .ficha-txt{order:2}
+  }
+  .ficha-num{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#5A5750;display:block;margin-bottom:20px}
+  .ficha h3{margin:0 0 18px;font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(32px,4.8vw,58px);line-height:1.04;letter-spacing:-.012em}
+  .ficha p{margin:0 0 30px;font-size:16.5px;line-height:1.64;color:#A9A49A;max-width:44ch}
+  .ficha-link{text-decoration:none;display:inline-flex;align-items:center;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.06em;color:#F6F4F1;border-bottom:1px solid #2E2C28;padding-bottom:9px;transition:border-color .25s}
+  .ficha-link:hover{border-color:#F6F4F1}
+  .ficha-link .fl{color:#7E7B73;transition:color .25s,transform .25s}
+  .ficha-link:hover .fl{color:#F6F4F1;transform:translate(2px,-2px)}
+  .retrato{display:block;position:relative;overflow:hidden;background:#111110;border:1px solid #1C1B19}
+  .retrato img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:top center;filter:grayscale(1) brightness(.95) contrast(1.02);transition:filter .55s ease,transform .9s ease}
+  .retrato:hover img{filter:grayscale(0) brightness(1) contrast(1);transform:scale(1.03)}
+  .retrato img.is-broken{display:none}
+  .retrato-fallback{display:none;width:100%;aspect-ratio:4/3;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:22px;color:#5A5750;text-align:center;padding:0 24px}
+  .retrato img.is-broken + .retrato-fallback{display:flex}
+
+  /* ---- Contacto y pie ---- */
+  #contacto{border-top:1px solid #1C1B19;background:#0C0C0D}
+  .contacto-grid{display:grid;grid-template-columns:1fr;gap:clamp(26px,4vw,60px);align-items:baseline}
+  @media (min-width:900px){ .contacto-grid{grid-template-columns:1fr 1fr} }
+  .datos{display:flex;flex-direction:column;gap:14px;color:#A9A49A}
+  .datos a{font-size:clamp(17px,2vw,22px);color:#F6F4F1;text-decoration:none;border-bottom:1px solid #2E2C28;padding-bottom:8px;align-self:flex-start;transition:border-color .25s}
+  .datos a:hover{border-color:#F6F4F1}
+  footer{border-top:1px solid #1C1B19}
+  footer .wrap{padding-top:32px;padding-bottom:40px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  footer .copy{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.1em;color:#5A5750}
+
+  @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
 </style>
 </head>
 <body>
 
-<!-- Logo reutilizable (hereda el color via currentColor) -->
+<!-- Monograma reutilizable. Hereda el color con currentColor -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="mark" viewBox="415 755 1218 538">
-    <path d="M 726.307 775.829 C 792.146 782.596 804.844 796.215 846.706 845.088 C 868.353 870.36 897.558 896.51 919.951 921.825 C 943.967 948.973 972.362 983.157 1013.07 966.674 C 1028.4 960.394 1046.73 938.549 1058.78 925.968 L 1116.64 865.261 C 1164.88 814.084 1181.29 787.058 1254.42 776.648 C 1254.09 820.413 1254.01 864.179 1254.17 907.945 L 1254.22 1227.5 C 1254.1 1242.68 1254.21 1257.87 1254.57 1273.05 C 1224.54 1272.47 1190.31 1259.82 1169.14 1238.43 C 1125.7 1194.56 1130.21 1155.27 1130.12 1099.68 L 1130.06 1009.25 C 1108.46 1025.59 1107.94 1044.69 1091.89 1064.54 C 1038.74 1130.29 934.471 1126.1 888.538 1054.61 C 879.464 1040.49 877.805 1026.18 863.614 1015.07 L 862.548 1014.25 C 862.737 1030.17 862.794 1046.09 862.721 1062.02 C 832.417 1050.14 823.348 1039.71 800.605 1017.06 L 757.6 973.906 C 747.48 963.675 736.924 952.368 725.955 943.192 L 725.362 839.672 C 725.296 819.743 724.946 795.543 726.307 775.829 z" fill="currentColor"></path>
-    <path d="M 435.066 777.501 C 512.759 782.293 527.425 808.574 578.409 860.021 L 738.918 1021.75 C 780.145 1062.87 802.312 1097.82 862.437 1112.38 C 862.962 1165.3 863.118 1218.22 862.903 1271.14 C 792.874 1265.85 771.608 1235.06 726.183 1188.9 L 587.443 1049.84 C 543.726 1005.7 502.809 949.343 435.181 945.679 L 435.066 777.501 z" fill="currentColor"></path>
-    <path d="M 1303.74 1025.15 C 1306.41 1057.64 1314.85 1082.45 1340.08 1104.52 C 1419.35 1173.87 1508.48 1094.23 1581.96 1183.64 C 1601.25 1207.11 1610.59 1228.67 1613.14 1259.42 C 1613.48 1264.04 1613.68 1268.66 1613.74 1273.29 L 1487.23 1273.09 C 1463.86 1273.11 1417.89 1274.89 1397.39 1270.13 C 1373.93 1264.75 1352.44 1252.93 1335.33 1235.99 C 1288.66 1189.08 1304.93 1134.05 1301.62 1074.29 C 1301.51 1072.26 1301.6 1068.39 1301.84 1066.42 C 1303.11 1056.3 1300.79 1031.16 1303.74 1025.15 z" fill="currentColor"></path>
-    <path d="M 1301.35 956.27 C 1301.26 904.24 1293.74 855.574 1333.79 814.994 C 1378.65 769.549 1425.48 777.934 1484.17 778.049 C 1527.25 778.401 1570.33 778.119 1613.4 777.202 C 1611.81 819.425 1601.24 846.321 1570.66 875.836 C 1498.14 945.855 1406.9 870.82 1335.77 945.396 C 1315.33 966.82 1307.11 987.728 1303.76 1016.74 L 1303.74 1025.15 C 1300.79 1031.16 1303.11 1056.3 1301.84 1066.42 C 1300.95 1059.02 1301.24 1042.92 1301.15 1035.02 C 1300.93 1008.77 1300.99 982.518 1301.35 956.27 z" fill="currentColor"></path>
-    <path d="M 435.212 997.753 L 437.141 998.013 C 485.96 1004.94 504.44 1029.09 537.56 1062.13 C 547.299 1071.85 564.736 1087.83 572.751 1098.55 C 572.042 1156.3 572.032 1214.07 572.721 1271.83 C 530.604 1270.8 501.216 1262.2 470.585 1231.81 C 428.286 1189.84 434.957 1140.15 434.933 1085.87 C 434.76 1056.5 434.853 1027.12 435.212 997.753 z" fill="currentColor"></path>
+  <symbol id="mark" viewBox="371.53 668.82 1301.29 711.87">
+    <path fill="currentColor" d="M 1654.19 672.867 C 1658.72 672.796 1663.43 672.652 1667.95 672.677 L 1668.04 949.912 L 1648.48 949.832 C 1636.8 872.597 1610.83 778.117 1545.16 728.779 C 1495.41 691.408 1412.23 687.656 1372.74 742.487 C 1362.89 756.389 1356.73 772.559 1354.81 789.487 C 1352.45 809.234 1353.27 848.294 1353.2 869.376 L 1353.21 1019 L 1353.33 1156.97 C 1353.41 1214.99 1346.87 1286.61 1400.55 1324.68 C 1426.98 1343.42 1464.47 1346.11 1495.54 1340.91 C 1589.9 1325.11 1645.23 1214.56 1647.14 1126.77 L 1672.82 1126.67 C 1669.61 1181.43 1662.83 1225.24 1633.69 1273.64 C 1593.39 1340.57 1530.1 1373.81 1452.85 1375.61 C 1429.18 1376.16 1404.89 1375.92 1380.89 1375.91 L 1257.38 1375.87 L 1148.35 1375.75 C 1138.7 1375.7 1109.82 1377.41 1103.18 1374.16 C 1101.1 1371.33 1099.36 1366.13 1103.95 1364.87 C 1112.63 1362.49 1121.03 1362.57 1129.97 1360.6 C 1174.15 1350.87 1212.18 1322.55 1216.52 1274.79 C 1218.21 1256.14 1217.32 1234.97 1217.32 1215.94 L 1217.08 1105.47 L 1217.01 909.605 C 1216.98 879.572 1217.52 847.278 1216.85 817.417 C 1215.37 804.325 1217.59 778.832 1215.28 768.634 C 1198.36 818.214 1182.92 869.406 1166.65 919.318 L 1065.16 1231.08 L 1034.08 1329.02 C 1029.03 1345.27 1023.82 1364.88 1018.37 1380.64 L 1005.95 1380.69 C 996.42 1348.95 986.012 1318.92 975.876 1287.5 C 946.102 1196.13 915.615 1105 884.418 1014.1 L 829.785 854.527 C 824.09 838.361 817.495 816.412 811.321 801.051 L 810.072 797.712 C 808.635 798.895 808.953 801.192 808.676 803.725 C 809.81 831.254 808.925 864.996 808.86 892.88 L 807.557 1086.7 L 807.349 1275.08 C 807.361 1287.7 808.671 1369.37 806.494 1375.14 L 804.717 1374.84 C 799.14 1366.3 784.142 1332.68 779.027 1321.82 C 762.787 1286.88 746.12 1252.14 729.03 1217.61 C 689.704 1138.19 648.096 1060.27 608.585 981.295 L 545.223 856.082 C 530.881 827.649 513.005 790.733 497.221 763.5 L 497.043 1074.4 L 496.996 1172 C 496.995 1201.99 496.259 1231.78 500.998 1261.51 C 505.313 1288.58 513.283 1316.91 533.106 1336.91 C 560.204 1364.26 608.587 1362.14 611.219 1364.88 C 612.018 1365.71 612.031 1368.85 612.049 1369.89 C 612.085 1371.88 612.03 1373.88 611.996 1375.88 C 589.772 1375.89 374.777 1376.88 372.195 1374.33 C 372.233 1370.69 371.688 1368.49 373.312 1365.67 C 380.687 1362.91 388.527 1362.4 395.874 1360 C 481.855 1331.91 470.524 1196.36 469.415 1125.91 C 469.06 1094.02 468.982 1062.12 469.184 1030.23 L 469.291 848.927 C 469.326 816.91 469.584 784.914 469.199 752.9 C 468.846 723.538 455.269 707.866 429.354 696.925 C 418.262 692.313 406.605 689.203 394.69 687.675 C 388.683 686.924 382.752 686.348 376.77 685.397 C 371.534 684.565 373.109 678.423 373.226 673.949 L 611.523 673.882 C 669.154 785.432 721.656 902.198 781.967 1012.91 L 782.319 856.566 C 782.445 767.168 793.678 691.496 677.055 684.798 C 674.127 684.63 673.072 682.2 672.453 679.913 C 675.729 669.488 693.89 673.379 703.16 673.482 L 751.003 673.75 L 918.338 673.985 C 933.319 717.476 945.972 762.349 959.776 806.212 L 1063.82 1147.73 C 1070.1 1131.63 1075.29 1113.05 1080.68 1096.45 C 1091.05 1065.11 1101.17 1033.7 1111.06 1002.21 L 1177.94 795.614 C 1190.96 755.571 1203.88 713.564 1217.74 673.952 L 1369.18 673.65 C 1429.4 673.733 1492.88 668.82 1547.04 700.15 C 1572.07 714.626 1597.73 749.498 1627.18 720.138 C 1637.09 710.473 1649 685.778 1654.19 672.867 z"/>
+    <path fill="currentColor" opacity=".38" d="M 1215.28 768.634 C 1216.07 765.325 1216.98 768.063 1216.97 768.934 C 1216.79 784.894 1217.72 801.512 1216.85 817.417 C 1215.37 804.325 1217.59 778.832 1215.28 768.634 z"/>
   </symbol>
 </svg>
 
-<div style="background:#0A0A0B;color:#F6F4F1;font-family:'Schibsted Grotesk',sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden">
+<!-- ===== NAV ===== -->
+<header>
+  <div class="wrap">
+    <a href="#top" class="logo-h" style="text-decoration:none;color:#F6F4F1" aria-label="Nicolás Mangieri">
+      <svg class="mark" aria-hidden="true"><use href="#mark"></use></svg>
+      <span class="bar" aria-hidden="true"></span>
+      <span class="name">Nicolás<br>Mangieri</span>
+    </a>
+    <nav class="mono">
+      <a href="#sectores" class="solo-ancho">Sectores</a>
+      <a href="#empresas">Empresas</a>
+      <a href="#contacto" class="btn">Conectar</a>
+    </nav>
+  </div>
+</header>
 
-  <!-- ===== NAV ===== -->
-  <header style="position:sticky;top:0;z-index:50;background:rgba(10,10,11,0.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid #1C1B19">
-    <div style="max-width:1240px;margin:0 auto;padding:18px clamp(20px,4vw,48px);display:flex;align-items:center;justify-content:space-between">
-      <a href="#top" style="text-decoration:none;display:flex;align-items:center"><svg class="mark" style="color:#F6F4F1;width:74px;height:33px"><use href="#mark"></use></svg></a>
-      <nav style="display:flex;align-items:center;gap:clamp(16px,3vw,40px);font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase">
-        <a href="#empresas" style="text-decoration:none;color:#A9A49A">Empresas</a>
-        <a href="#contacto" style="text-decoration:none;color:#F6F4F1;border:1px solid #2E2C28;padding:9px 16px;border-radius:100px">Conectar</a>
-      </nav>
+<!-- ===== HERO ===== -->
+<section id="top">
+  <div class="logo-v" style="color:#F6F4F1">
+    <svg class="mark" aria-hidden="true"><use href="#mark"></use></svg>
+    <span class="name">Nicolás Mangieri</span>
+  </div>
+  <p class="claim">Diez empresas en ingeniería, seguros, salud, educación y deporte.</p>
+  <a href="#sectores" class="cue mono">Recorrer <span>↓</span></a>
+</section>
+
+<!-- ===== SECTORES ===== -->
+<section id="sectores" class="seccion">
+  <div class="wrap">
+    <div class="sectores">
+      <h2 class="titulo">Cinco<br>sectores</h2>
+      <div class="sector">
+        <span class="num">01</span>
+        <div>
+          <h3>Ingeniería y energía</h3>
+          <p>El núcleo del grupo. Cuatro firmas que diseñan, construyen y mantienen la infraestructura de la industria petrolera y eléctrica venezolana, con trayectorias que van de las tres a las cuatro décadas.</p>
+          <div class="lista">
+            <a href="#e01">Saip Service</a>
+            <a href="#e02">Pioneer Venezuela</a>
+            <a href="#e03">Manfreca</a>
+            <a href="#e04">GTME Service</a>
+          </div>
+        </div>
+      </div>
+      <div class="sector">
+        <span class="num">02</span>
+        <div>
+          <h3>Seguros</h3>
+          <p>Dos aseguradoras con cobertura para personas, patrimonio, vehículos y empresas.</p>
+          <div class="lista">
+            <a href="#e05">Seguros Los Andes</a>
+            <a href="#e06">Ibero Seguros</a>
+          </div>
+        </div>
+      </div>
+      <div class="sector">
+        <span class="num">03</span>
+        <div>
+          <h3>Salud</h3>
+          <p>Atención médica integral con equipo multidisciplinario.</p>
+          <div class="lista">
+            <a href="#e07">Grupo IDET</a>
+          </div>
+        </div>
+      </div>
+      <div class="sector">
+        <span class="num">04</span>
+        <div>
+          <h3>Educación</h3>
+          <p>Formación universitaria en Venezuela y una escuela de diseño en Miami.</p>
+          <div class="lista">
+            <a href="#e08">Universidad Nueva Esparta</a>
+            <a href="#e09">Miami College of Design</a>
+          </div>
+        </div>
+      </div>
+      <div class="sector">
+        <span class="num">05</span>
+        <div>
+          <h3>Deporte</h3>
+          <p>Béisbol profesional venezolano.</p>
+          <div class="lista">
+            <a href="#e10">Caribes de Anzoátegui</a>
+          </div>
+        </div>
+      </div>
     </div>
-  </header>
+  </div>
+</section>
 
-  <!-- ===== HERO ===== -->
-  <section id="top" style="min-height:clamp(440px,82vh,860px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(32px,5vw,52px);padding:clamp(60px,10vw,130px) clamp(20px,4vw,48px);text-align:center">
-    <svg class="mark" style="color:#F6F4F1;width:min(560px,82vw);height:auto;aspect-ratio:1218/538"><use href="#mark"></use></svg>
-    <a href="#empresas" style="text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#7E7B73;display:inline-flex;align-items:center;gap:10px">Empresas <span style="color:#C2A878">↓</span></a>
-  </section>
-
-  <!-- ===== EMPRESAS ===== -->
-  <section id="empresas" style="max-width:1240px;margin:0 auto;padding:clamp(40px,6vw,80px) clamp(20px,4vw,48px) clamp(60px,8vw,120px)">
-    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:20px;border-top:1px solid #1C1B19;padding-top:28px;margin-bottom:clamp(40px,6vw,80px)">
-      <h2 style="margin:0;font-weight:700;font-size:clamp(22px,3vw,34px);letter-spacing:-0.02em">Empresas del grupo</h2>
-      <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;color:#5A5750">10 — Activas</span>
+<!-- ===== CARRUSEL DE EMPRESAS ===== -->
+<section id="empresas" class="seccion" style="padding-top:0">
+  <div class="wrap">
+    <div class="cabecera">
+      <h2 class="titulo">Las empresas</h2>
+      <span class="conteo mono">10 activas</span>
     </div>
-
-    <div style="display:flex;flex-direction:column;gap:clamp(56px,9vw,120px)">
-
-      <!-- 01 SAIP -->
-      <article style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(28px,5vw,72px);align-items:center">
-        <div>
-          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.14em;color:#C2A878;margin-bottom:22px">01</div>
-          <h3 style="margin:0 0 16px;font-weight:800;font-size:clamp(30px,4.4vw,52px);line-height:1.0;letter-spacing:-0.02em">Saip Service</h3>
-          <p style="margin:0 0 28px;font-size:16.5px;line-height:1.62;color:#A9A49A;max-width:42ch">Firma de ingeniería industrial con más de 28 años de precisión multidisciplinaria en proyectos de energía, petróleo e infraestructura en Venezuela.</p>
-          <a href="https://www.saipservice.com/" target="_blank" rel="noopener" style="text-decoration:none;display:inline-flex;align-items:center;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.08em;color:#F6F4F1;border-bottom:1px solid #2E2C28;padding-bottom:8px">
-            <span style="color:#C2A878">↗</span> saipservice.com
+    <div class="carrusel">
+      <div class="pista" id="pista">
+          <a class="card" href="#e01">
+            <span class="card-img"><img src="assets/prev-saip.png" alt="Saip Service" loading="lazy"></span>
+            <span class="card-pie">
+              <span class="n">01</span>
+              <span class="t">Saip Service</span>
+              <span class="s">Ingeniería y energía</span>
+            </span>
           </a>
+          <a class="card" href="#e02">
+            <span class="card-img"><img src="assets/prev-pioneer.png" alt="Pioneer Venezuela" loading="lazy"></span>
+            <span class="card-pie">
+              <span class="n">02</span>
+              <span class="t">Pioneer Venezuela</span>
+              <span class="s">Ingeniería y energía</span>
+            </span>
+          </a>
+          <a class="card" href="#e03">
+            <span class="card-img"><img src="assets/prev-manfreca.png" alt="Manfreca" loading="lazy"></span>
+            <span class="card-pie">
+              <span class="n">03</span>
+              <span class="t">Manfreca</span>
+              <span class="s">Ingeniería y energía</span>
+            </span>
+          </a>
+          <a class="card" href="#e04">
+            <span class="card-img"><img src="assets/prev-gtme.png" alt="GTME Service" loading="lazy"></span>
+            <span class="card-pie">
+              <span class="n">04</span>
+              <span class="t">GTME Service</span>
+              <span class="s">Ingeniería y energía</span>
+            </span>
+          </a>
+          <a class="card" href="#e05">
+            <span class="card-img"><img src="assets/prev-losandes.png" alt="Seguros Los Andes" loading="lazy"></span>
+            <span class="card-pie">
+              <span class="n">05</span>
+              <span class="t">Seguros Los Andes</span>
+              <span class="s">Seguros</span>
+            </span>
+          </a>
+          <a class="card" href="#e06">
+            <span class="card-img"><img src="assets/prev-ibero.png" alt="Ibero Seguros" loading="lazy"></span>
+            <span class="card-pie">
+              <span class="n">06</span>
+              <span class="t">Ibero Seguros</span>
+              <span class="s">Seguros</span>
+            </span>
+          </a>
+          <a class="card" href="#e07">
+            <span class="card-img"><img src="assets/prev-idet.png" alt="Grupo IDET" loading="lazy"></span>
+            <span class="card-pie">
+              <span class="n">07</span>
+              <span class="t">Grupo IDET</span>
+              <span class="s">Salud</span>
+            </span>
+          </a>
+          <a class="card" href="#e08">
+            <span class="card-img"><img src="assets/prev-une.png" alt="Universidad Nueva Esparta" loading="lazy"></span>
+            <span class="card-pie">
+              <span class="n">08</span>
+              <span class="t">Universidad Nueva Esparta</span>
+              <span class="s">Educación</span>
+            </span>
+          </a>
+          <a class="card" href="#e09">
+            <span class="card-img"><img src="assets/prev-miamicollege.png" alt="Miami College of Design" loading="lazy"></span>
+            <span class="card-pie">
+              <span class="n">09</span>
+              <span class="t">Miami College of Design</span>
+              <span class="s">Educación</span>
+            </span>
+          </a>
+          <a class="card" href="#e10">
+            <span class="card-img"><img src="assets/prev-caribes.png" alt="Caribes de Anzoátegui" loading="lazy"></span>
+            <span class="card-pie">
+              <span class="n">10</span>
+              <span class="t">Caribes de Anzoátegui</span>
+              <span class="s">Deporte</span>
+            </span>
+          </a>
+      </div>
+      <div class="car-nav">
+        <button class="car-btn" type="button" data-dir="-1" aria-label="Anterior">&#8592;</button>
+        <button class="car-btn" type="button" data-dir="1" aria-label="Siguiente">&#8594;</button>
+        <div class="car-puntos" id="puntos" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FICHAS ===== -->
+<section class="seccion" style="padding-top:clamp(56px,8vw,110px)">
+  <div class="wrap">
+    <div class="fichas">
+
+      <article class="ficha" id="e01">
+        <div class="ficha-txt">
+          <span class="ficha-num">01 · Ingeniería y energía</span>
+          <h3>Saip Service</h3>
+          <p>Firma de ingeniería industrial con más de 28 años de precisión multidisciplinaria en proyectos de energía, petróleo e infraestructura en Venezuela.</p>
+          <a class="ficha-link" href="https://www.saipservice.com/" target="_blank" rel="noopener"><span class="fl">↗</span>saipservice.com</a>
         </div>
-        <a href="https://www.saipservice.com/" target="_blank" rel="noopener" style="text-decoration:none;display:block">
-          <div style="border:1px solid #211F1C;border-radius:12px;overflow:hidden;background:#111110;box-shadow:0 40px 80px -40px rgba(0,0,0,.8)">
-            <div style="display:flex;align-items:center;gap:8px;padding:13px 16px;border-bottom:1px solid #211F1C">
-              <span style="width:11px;height:11px;border-radius:50%;background:#3A3833"></span><span style="width:11px;height:11px;border-radius:50%;background:#3A3833"></span><span style="width:11px;height:11px;border-radius:50%;background:#3A3833"></span>
-              <span style="margin-left:10px;flex:1;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#7E7B73;background:#0F0F0E;border:1px solid #211F1C;border-radius:6px;padding:6px 12px;text-align:center">saipservice.com</span>
-            </div>
-            <img class="card-img" src="assets/prev-saip.png" alt="Captura de saipservice.com" loading="lazy" onerror="this.classList.add('is-broken')">
-            <div class="card-fallback">saipservice.com</div>
-          </div>
+        <a class="retrato" href="https://www.saipservice.com/" target="_blank" rel="noopener" aria-label="Abrir saipservice.com">
+          <img src="assets/prev-saip.png" alt="Saip Service" loading="lazy" onerror="this.classList.add('is-broken')">
+          <span class="retrato-fallback">Saip Service</span>
         </a>
       </article>
 
-      <!-- 02 PIONEER -->
-      <article style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(28px,5vw,72px);align-items:center">
-        <a href="https://www.pioneervenezuela.com/" target="_blank" rel="noopener" style="text-decoration:none;display:block;order:2">
-          <div style="border:1px solid #211F1C;border-radius:12px;overflow:hidden;background:#111110;box-shadow:0 40px 80px -40px rgba(0,0,0,.8)">
-            <div style="display:flex;align-items:center;gap:8px;padding:13px 16px;border-bottom:1px solid #211F1C">
-              <span style="width:11px;height:11px;border-radius:50%;background:#3A3833"></span><span style="width:11px;height:11px;border-radius:50%;background:#3A3833"></span><span style="width:11px;height:11px;border-radius:50%;background:#3A3833"></span>
-              <span style="margin-left:10px;flex:1;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#7E7B73;background:#0F0F0E;border:1px solid #211F1C;border-radius:6px;padding:6px 12px;text-align:center">pioneervenezuela.com</span>
-            </div>
-            <img class="card-img" src="assets/prev-pioneer.png" alt="Captura de pioneervenezuela.com" loading="lazy" onerror="this.classList.add('is-broken')">
-            <div class="card-fallback">pioneervenezuela.com</div>
-          </div>
-        </a>
-        <div style="order:1">
-          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.14em;color:#C2A878;margin-bottom:22px">02</div>
-          <h3 style="margin:0 0 16px;font-weight:800;font-size:clamp(30px,4.4vw,52px);line-height:1.0;letter-spacing:-0.02em">Pioneer Venezuela</h3>
-          <p style="margin:0 0 28px;font-size:16.5px;line-height:1.62;color:#A9A49A;max-width:42ch">Servicios petroleros especializados en wireline, saneamiento ambiental y desarrollo de gas. Más de 30 años operando en campo para la industria venezolana.</p>
-          <a href="https://www.pioneervenezuela.com/" target="_blank" rel="noopener" style="text-decoration:none;display:inline-flex;align-items:center;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.08em;color:#F6F4F1;border-bottom:1px solid #2E2C28;padding-bottom:8px">
-            <span style="color:#C2A878">↗</span> pioneervenezuela.com
-          </a>
+      <article class="ficha" id="e02">
+        <div class="ficha-txt">
+          <span class="ficha-num">02 · Ingeniería y energía</span>
+          <h3>Pioneer Venezuela</h3>
+          <p>Servicios petroleros especializados en wireline, saneamiento ambiental y desarrollo de gas. Más de 30 años operando en campo para la industria venezolana.</p>
+          <a class="ficha-link" href="https://www.pioneervenezuela.com/" target="_blank" rel="noopener"><span class="fl">↗</span>pioneervenezuela.com</a>
         </div>
-      </article>
-
-      <!-- 03 MANFRECA -->
-      <article style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(28px,5vw,72px);align-items:center">
-        <div>
-          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.14em;color:#C2A878;margin-bottom:22px">03</div>
-          <h3 style="margin:0 0 16px;font-weight:800;font-size:clamp(30px,4.4vw,52px);line-height:1.0;letter-spacing:-0.02em">Manfreca</h3>
-          <p style="margin:0 0 28px;font-size:16.5px;line-height:1.62;color:#A9A49A;max-width:42ch">Ingeniería y construcción integral. Más de 40 años ejecutando obras de infraestructura con autonomía total, combinando experiencia comprobada y tecnología.</p>
-          <a href="https://www.manfreca.com/" target="_blank" rel="noopener" style="text-decoration:none;display:inline-flex;align-items:center;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.08em;color:#F6F4F1;border-bottom:1px solid #2E2C28;padding-bottom:8px">
-            <span style="color:#C2A878">↗</span> manfreca.com
-          </a>
-        </div>
-        <a href="https://www.manfreca.com/" target="_blank" rel="noopener" style="text-decoration:none;display:block">
-          <div style="border:1px solid #211F1C;border-radius:12px;overflow:hidden;background:#111110;box-shadow:0 40px 80px -40px rgba(0,0,0,.8)">
-            <div style="display:flex;align-items:center;gap:8px;padding:13px 16px;border-bottom:1px solid #211F1C">
-              <span style="width:11px;height:11px;border-radius:50%;background:#3A3833"></span><span style="width:11px;height:11px;border-radius:50%;background:#3A3833"></span><span style="width:11px;height:11px;border-radius:50%;background:#3A3833"></span>
-              <span style="margin-left:10px;flex:1;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#7E7B73;background:#0F0F0E;border:1px solid #211F1C;border-radius:6px;padding:6px 12px;text-align:center">manfreca.com</span>
-            </div>
-            <img class="card-img" src="assets/prev-manfreca.png" alt="Captura de manfreca.com" loading="lazy" onerror="this.classList.add('is-broken')">
-            <div class="card-fallback">manfreca.com</div>
-          </div>
+        <a class="retrato" href="https://www.pioneervenezuela.com/" target="_blank" rel="noopener" aria-label="Abrir pioneervenezuela.com">
+          <img src="assets/prev-pioneer.png" alt="Pioneer Venezuela" loading="lazy" onerror="this.classList.add('is-broken')">
+          <span class="retrato-fallback">Pioneer Venezuela</span>
         </a>
       </article>
 
-
-      <!-- 04 GTME -->
-      <article style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(28px,5vw,72px);align-items:center">
-        <a href="https://gtmeservice.com/" target="_blank" rel="noopener" style="text-decoration:none;display:block;order:2">
-          <div style="border:1px solid #211F1C;border-radius:12px;overflow:hidden;background:#111110;box-shadow:0 40px 80px -40px rgba(0,0,0,.8)">
-            <div style="display:flex;align-items:center;gap:8px;padding:13px 16px;border-bottom:1px solid #211F1C">
-              <span style="width:11px;height:11px;border-radius:50%;background:#3A3833"></span><span style="width:11px;height:11px;border-radius:50%;background:#3A3833"></span><span style="width:11px;height:11px;border-radius:50%;background:#3A3833"></span>
-              <span style="margin-left:10px;flex:1;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#7E7B73;background:#0F0F0E;border:1px solid #211F1C;border-radius:6px;padding:6px 12px;text-align:center">gtmeservice.com</span>
-            </div>
-            <img class="card-img" src="assets/prev-gtme.png" alt="Captura de gtmeservice.com" loading="lazy" onerror="this.classList.add('is-broken')"/>
-            <div class="card-fallback">gtmeservice.com</div>
-          </div>
-        </a>
-        <div style="order:1">
-          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.14em;color:#C2A878;margin-bottom:22px">04</div>
-          <h3 style="margin:0 0 16px;font-weight:800;font-size:clamp(30px,4.4vw,52px);line-height:1.0;letter-spacing:-0.02em">GTME Service</h3>
-          <p style="margin:0 0 28px;font-size:16.5px;line-height:1.62;color:#A9A49A;max-width:42ch">Ingeniería eléctrica e infraestructura industrial. Cuatro décadas modernizando plantas, subestaciones y sistemas de control — SCADA, PLCs y redes industriales — sin detener la producción.</p>
-          <a href="https://gtmeservice.com/" target="_blank" rel="noopener" style="text-decoration:none;display:inline-flex;align-items:center;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.08em;color:#F6F4F1;border-bottom:1px solid #2E2C28;padding-bottom:8px">
-            <span style="color:#C2A878">↗</span> gtmeservice.com
-          </a>
+      <article class="ficha" id="e03">
+        <div class="ficha-txt">
+          <span class="ficha-num">03 · Ingeniería y energía</span>
+          <h3>Manfreca</h3>
+          <p>Ingeniería y construcción integral. Más de 40 años ejecutando obras de infraestructura con autonomía total, combinando experiencia comprobada y tecnología.</p>
+          <a class="ficha-link" href="https://www.manfreca.com/" target="_blank" rel="noopener"><span class="fl">↗</span>manfreca.com</a>
         </div>
-      </article>
-      <!-- 05 SEGUROS LOS ANDES -->
-      <article style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(28px,5vw,72px);align-items:center">
-        <a href="https://www.seguroslosandes.com/" target="_blank" rel="noopener" style="text-decoration:none;display:block;order:2">
-          <div style="border:1px solid #211F1C;border-radius:12px;overflow:hidden;background:#111110;box-shadow:0 40px 80px -40px rgba(0,0,0,.8)">
-            <div style="display:flex;align-items:center;gap:8px;padding:13px 16px;border-bottom:1px solid #211F1C">
-              <span style="width:11px;height:11px;border-radius:50%;background:#3A3833"></span><span style="width:11px;height:11px;border-radius:50%;background:#3A3833"></span><span style="width:11px;height:11px;border-radius:50%;background:#3A3833"></span>
-              <span style="margin-left:10px;flex:1;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#7E7B73;background:#0F0F0E;border:1px solid #211F1C;border-radius:6px;padding:6px 12px;text-align:center">seguroslosandes.com</span>
-            </div>
-            <img class="card-img" src="assets/prev-losandes.png" alt="Captura de seguroslosandes.com" loading="lazy" onerror="this.classList.add('is-broken')">
-            <div class="card-fallback">seguroslosandes.com</div>
-          </div>
-        </a>
-        <div style="order:1">
-          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.14em;color:#C2A878;margin-bottom:22px">05</div>
-          <h3 style="margin:0 0 16px;font-weight:800;font-size:clamp(30px,4.4vw,52px);line-height:1.0;letter-spacing:-0.02em">Seguros Los Andes</h3>
-          <p style="margin:0 0 28px;font-size:16.5px;line-height:1.62;color:#A9A49A;max-width:42ch">Compañía aseguradora venezolana con pólizas para personas, patrimonio y vehículos.</p>
-          <a href="https://www.seguroslosandes.com/" target="_blank" rel="noopener" style="text-decoration:none;display:inline-flex;align-items:center;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.08em;color:#F6F4F1;border-bottom:1px solid #2E2C28;padding-bottom:8px">
-            <span style="color:#C2A878">↗</span> seguroslosandes.com
-          </a>
-        </div>
-      </article>
-
-      <!-- 06 IBERO SEGUROS -->
-      <article style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(28px,5vw,72px);align-items:center">
-        <div>
-          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.14em;color:#C2A878;margin-bottom:22px">06</div>
-          <h3 style="margin:0 0 16px;font-weight:800;font-size:clamp(30px,4.4vw,52px);line-height:1.0;letter-spacing:-0.02em">Ibero Seguros</h3>
-          <p style="margin:0 0 28px;font-size:16.5px;line-height:1.62;color:#A9A49A;max-width:42ch">Aseguradora con portal de clientes en línea y cobertura integral para personas y empresas.</p>
-          <a href="https://www.iberoseguros.com/" target="_blank" rel="noopener" style="text-decoration:none;display:inline-flex;align-items:center;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.08em;color:#F6F4F1;border-bottom:1px solid #2E2C28;padding-bottom:8px">
-            <span style="color:#C2A878">↗</span> iberoseguros.com
-          </a>
-        </div>
-        <a href="https://www.iberoseguros.com/" target="_blank" rel="noopener" style="text-decoration:none;display:block">
-          <div style="border:1px solid #211F1C;border-radius:12px;overflow:hidden;background:#111110;box-shadow:0 40px 80px -40px rgba(0,0,0,.8)">
-            <div style="display:flex;align-items:center;gap:8px;padding:13px 16px;border-bottom:1px solid #211F1C">
-              <span style="width:11px;height:11px;border-radius:50%;background:#3A3833"></span><span style="width:11px;height:11px;border-radius:50%;background:#3A3833"></span><span style="width:11px;height:11px;border-radius:50%;background:#3A3833"></span>
-              <span style="margin-left:10px;flex:1;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#7E7B73;background:#0F0F0E;border:1px solid #211F1C;border-radius:6px;padding:6px 12px;text-align:center">iberoseguros.com</span>
-            </div>
-            <img class="card-img" src="assets/prev-ibero.png" alt="Captura de iberoseguros.com" loading="lazy" onerror="this.classList.add('is-broken')">
-            <div class="card-fallback">iberoseguros.com</div>
-          </div>
+        <a class="retrato" href="https://www.manfreca.com/" target="_blank" rel="noopener" aria-label="Abrir manfreca.com">
+          <img src="assets/prev-manfreca.png" alt="Manfreca" loading="lazy" onerror="this.classList.add('is-broken')">
+          <span class="retrato-fallback">Manfreca</span>
         </a>
       </article>
 
-      <!-- 07 GRUPO IDET -->
-      <article style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(28px,5vw,72px);align-items:center">
-        <a href="https://grupoidet.com/" target="_blank" rel="noopener" style="text-decoration:none;display:block;order:2">
-          <div style="border:1px solid #211F1C;border-radius:12px;overflow:hidden;background:#111110;box-shadow:0 40px 80px -40px rgba(0,0,0,.8)">
-            <div style="display:flex;align-items:center;gap:8px;padding:13px 16px;border-bottom:1px solid #211F1C">
-              <span style="width:11px;height:11px;border-radius:50%;background:#3A3833"></span><span style="width:11px;height:11px;border-radius:50%;background:#3A3833"></span><span style="width:11px;height:11px;border-radius:50%;background:#3A3833"></span>
-              <span style="margin-left:10px;flex:1;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#7E7B73;background:#0F0F0E;border:1px solid #211F1C;border-radius:6px;padding:6px 12px;text-align:center">grupoidet.com</span>
-            </div>
-            <img class="card-img" src="assets/prev-idet.png" alt="Captura de grupoidet.com" loading="lazy" onerror="this.classList.add('is-broken')">
-            <div class="card-fallback">grupoidet.com</div>
-          </div>
-        </a>
-        <div style="order:1">
-          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.14em;color:#C2A878;margin-bottom:22px">07</div>
-          <h3 style="margin:0 0 16px;font-weight:800;font-size:clamp(30px,4.4vw,52px);line-height:1.0;letter-spacing:-0.02em">Grupo IDET</h3>
-          <p style="margin:0 0 28px;font-size:16.5px;line-height:1.62;color:#A9A49A;max-width:42ch">Atención médica integral con un equipo multidisciplinario y especializado al cuidado de tu salud.</p>
-          <a href="https://grupoidet.com/" target="_blank" rel="noopener" style="text-decoration:none;display:inline-flex;align-items:center;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.08em;color:#F6F4F1;border-bottom:1px solid #2E2C28;padding-bottom:8px">
-            <span style="color:#C2A878">↗</span> grupoidet.com
-          </a>
+      <article class="ficha" id="e04">
+        <div class="ficha-txt">
+          <span class="ficha-num">04 · Ingeniería y energía</span>
+          <h3>GTME Service</h3>
+          <p>Ingeniería eléctrica e infraestructura industrial. Cuatro décadas modernizando plantas, subestaciones y sistemas de control (SCADA, PLCs y redes industriales) sin detener la producción.</p>
+          <a class="ficha-link" href="https://gtmeservice.com/" target="_blank" rel="noopener"><span class="fl">↗</span>gtmeservice.com</a>
         </div>
-      </article>
-
-      <!-- 08 UNIVERSIDAD NUEVA ESPARTA -->
-      <article style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(28px,5vw,72px);align-items:center">
-        <div>
-          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.14em;color:#C2A878;margin-bottom:22px">08</div>
-          <h3 style="margin:0 0 16px;font-weight:800;font-size:clamp(30px,4.4vw,52px);line-height:1.0;letter-spacing:-0.02em">Universidad Nueva Esparta</h3>
-          <p style="margin:0 0 28px;font-size:16.5px;line-height:1.62;color:#A9A49A;max-width:42ch">Institución universitaria venezolana con pregrado y postgrado y formación integral por competencias.</p>
-          <a href="https://une.edu.ve/" target="_blank" rel="noopener" style="text-decoration:none;display:inline-flex;align-items:center;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.08em;color:#F6F4F1;border-bottom:1px solid #2E2C28;padding-bottom:8px">
-            <span style="color:#C2A878">↗</span> une.edu.ve
-          </a>
-        </div>
-        <a href="https://une.edu.ve/" target="_blank" rel="noopener" style="text-decoration:none;display:block">
-          <div style="border:1px solid #211F1C;border-radius:12px;overflow:hidden;background:#111110;box-shadow:0 40px 80px -40px rgba(0,0,0,.8)">
-            <div style="display:flex;align-items:center;gap:8px;padding:13px 16px;border-bottom:1px solid #211F1C">
-              <span style="width:11px;height:11px;border-radius:50%;background:#3A3833"></span><span style="width:11px;height:11px;border-radius:50%;background:#3A3833"></span><span style="width:11px;height:11px;border-radius:50%;background:#3A3833"></span>
-              <span style="margin-left:10px;flex:1;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#7E7B73;background:#0F0F0E;border:1px solid #211F1C;border-radius:6px;padding:6px 12px;text-align:center">une.edu.ve</span>
-            </div>
-            <img class="card-img" src="assets/prev-une.png" alt="Captura de une.edu.ve" loading="lazy" onerror="this.classList.add('is-broken')">
-            <div class="card-fallback">une.edu.ve</div>
-          </div>
+        <a class="retrato" href="https://gtmeservice.com/" target="_blank" rel="noopener" aria-label="Abrir gtmeservice.com">
+          <img src="assets/prev-gtme.png" alt="GTME Service" loading="lazy" onerror="this.classList.add('is-broken')">
+          <span class="retrato-fallback">GTME Service</span>
         </a>
       </article>
 
-      <!-- 09 MIAMI COLLEGE OF DESIGN -->
-      <article style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(28px,5vw,72px);align-items:center">
-        <a href="https://miamicollegedesign.github.io/" target="_blank" rel="noopener" style="text-decoration:none;display:block;order:2">
-          <div style="border:1px solid #211F1C;border-radius:12px;overflow:hidden;background:#111110;box-shadow:0 40px 80px -40px rgba(0,0,0,.8)">
-            <div style="display:flex;align-items:center;gap:8px;padding:13px 16px;border-bottom:1px solid #211F1C">
-              <span style="width:11px;height:11px;border-radius:50%;background:#3A3833"></span><span style="width:11px;height:11px;border-radius:50%;background:#3A3833"></span><span style="width:11px;height:11px;border-radius:50%;background:#3A3833"></span>
-              <span style="margin-left:10px;flex:1;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#7E7B73;background:#0F0F0E;border:1px solid #211F1C;border-radius:6px;padding:6px 12px;text-align:center">miamicollegedesign.github.io</span>
-            </div>
-            <img class="card-img" src="assets/prev-miamicollege.png" alt="Captura de Miami College of Design" loading="lazy" onerror="this.classList.add('is-broken')">
-            <div class="card-fallback">miamicollegedesign.github.io</div>
-          </div>
-        </a>
-        <div style="order:1">
-          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.14em;color:#C2A878;margin-bottom:22px">09</div>
-          <h3 style="margin:0 0 16px;font-weight:800;font-size:clamp(30px,4.4vw,52px);line-height:1.0;letter-spacing:-0.02em">Miami College of Design</h3>
-          <p style="margin:0 0 28px;font-size:16.5px;line-height:1.62;color:#A9A49A;max-width:42ch">Escuela de diseño con formación creativa y proyectos de sus estudiantes.</p>
-          <a href="https://miamicollegedesign.github.io/" target="_blank" rel="noopener" style="text-decoration:none;display:inline-flex;align-items:center;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.08em;color:#F6F4F1;border-bottom:1px solid #2E2C28;padding-bottom:8px">
-            <span style="color:#C2A878">↗</span> miamicollegedesign.github.io
-          </a>
+      <article class="ficha" id="e05">
+        <div class="ficha-txt">
+          <span class="ficha-num">05 · Seguros</span>
+          <h3>Seguros Los Andes</h3>
+          <p>Compañía aseguradora venezolana con pólizas para personas, patrimonio y vehículos.</p>
+          <a class="ficha-link" href="https://www.seguroslosandes.com/" target="_blank" rel="noopener"><span class="fl">↗</span>seguroslosandes.com</a>
         </div>
-      </article>
-
-      <!-- 10 CARIBES -->
-      <article style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(28px,5vw,72px);align-items:center">
-        <div>
-          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.14em;color:#C2A878;margin-bottom:22px">10</div>
-          <h3 style="margin:0 0 16px;font-weight:800;font-size:clamp(30px,4.4vw,52px);line-height:1.0;letter-spacing:-0.02em">Caribes de Anzoátegui</h3>
-          <p style="margin:0 0 28px;font-size:16.5px;line-height:1.62;color:#A9A49A;max-width:42ch">Club de béisbol profesional venezolano — noticias, plantilla y calendario de la temporada.</p>
-          <a href="https://www.caribesbbc.com/" target="_blank" rel="noopener" style="text-decoration:none;display:inline-flex;align-items:center;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.08em;color:#F6F4F1;border-bottom:1px solid #2E2C28;padding-bottom:8px">
-            <span style="color:#C2A878">↗</span> caribesbbc.com
-          </a>
-        </div>
-        <a href="https://www.caribesbbc.com/" target="_blank" rel="noopener" style="text-decoration:none;display:block">
-          <div style="border:1px solid #211F1C;border-radius:12px;overflow:hidden;background:#111110;box-shadow:0 40px 80px -40px rgba(0,0,0,.8)">
-            <div style="display:flex;align-items:center;gap:8px;padding:13px 16px;border-bottom:1px solid #211F1C">
-              <span style="width:11px;height:11px;border-radius:50%;background:#3A3833"></span><span style="width:11px;height:11px;border-radius:50%;background:#3A3833"></span><span style="width:11px;height:11px;border-radius:50%;background:#3A3833"></span>
-              <span style="margin-left:10px;flex:1;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#7E7B73;background:#0F0F0E;border:1px solid #211F1C;border-radius:6px;padding:6px 12px;text-align:center">caribesbbc.com</span>
-            </div>
-            <img class="card-img" src="assets/prev-caribes.png" alt="Captura de caribesbbc.com" loading="lazy" onerror="this.classList.add('is-broken')">
-            <div class="card-fallback">caribesbbc.com</div>
-          </div>
+        <a class="retrato" href="https://www.seguroslosandes.com/" target="_blank" rel="noopener" aria-label="Abrir seguroslosandes.com">
+          <img src="assets/prev-losandes.png" alt="Seguros Los Andes" loading="lazy" onerror="this.classList.add('is-broken')">
+          <span class="retrato-fallback">Seguros Los Andes</span>
         </a>
       </article>
 
+      <article class="ficha" id="e06">
+        <div class="ficha-txt">
+          <span class="ficha-num">06 · Seguros</span>
+          <h3>Ibero Seguros</h3>
+          <p>Aseguradora con portal de clientes en línea y cobertura integral para personas y empresas.</p>
+          <a class="ficha-link" href="https://www.iberoseguros.com/" target="_blank" rel="noopener"><span class="fl">↗</span>iberoseguros.com</a>
+        </div>
+        <a class="retrato" href="https://www.iberoseguros.com/" target="_blank" rel="noopener" aria-label="Abrir iberoseguros.com">
+          <img src="assets/prev-ibero.png" alt="Ibero Seguros" loading="lazy" onerror="this.classList.add('is-broken')">
+          <span class="retrato-fallback">Ibero Seguros</span>
+        </a>
+      </article>
+
+      <article class="ficha" id="e07">
+        <div class="ficha-txt">
+          <span class="ficha-num">07 · Salud</span>
+          <h3>Grupo IDET</h3>
+          <p>Atención médica integral con un equipo multidisciplinario y especializado al cuidado de tu salud.</p>
+          <a class="ficha-link" href="https://grupoidet.com/" target="_blank" rel="noopener"><span class="fl">↗</span>grupoidet.com</a>
+        </div>
+        <a class="retrato" href="https://grupoidet.com/" target="_blank" rel="noopener" aria-label="Abrir grupoidet.com">
+          <img src="assets/prev-idet.png" alt="Grupo IDET" loading="lazy" onerror="this.classList.add('is-broken')">
+          <span class="retrato-fallback">Grupo IDET</span>
+        </a>
+      </article>
+
+      <article class="ficha" id="e08">
+        <div class="ficha-txt">
+          <span class="ficha-num">08 · Educación</span>
+          <h3>Universidad Nueva Esparta</h3>
+          <p>Institución universitaria venezolana con pregrado y postgrado y formación integral por competencias.</p>
+          <a class="ficha-link" href="https://une.edu.ve/" target="_blank" rel="noopener"><span class="fl">↗</span>une.edu.ve</a>
+        </div>
+        <a class="retrato" href="https://une.edu.ve/" target="_blank" rel="noopener" aria-label="Abrir une.edu.ve">
+          <img src="assets/prev-une.png" alt="Universidad Nueva Esparta" loading="lazy" onerror="this.classList.add('is-broken')">
+          <span class="retrato-fallback">Universidad Nueva Esparta</span>
+        </a>
+      </article>
+
+      <article class="ficha" id="e09">
+        <div class="ficha-txt">
+          <span class="ficha-num">09 · Educación</span>
+          <h3>Miami College of Design</h3>
+          <p>Escuela de diseño con formación creativa y proyectos de sus estudiantes.</p>
+          <a class="ficha-link" href="https://miamicollegedesign.github.io/" target="_blank" rel="noopener"><span class="fl">↗</span>miamicollegedesign.github.io</a>
+        </div>
+        <a class="retrato" href="https://miamicollegedesign.github.io/" target="_blank" rel="noopener" aria-label="Abrir miamicollegedesign.github.io">
+          <img src="assets/prev-miamicollege.png" alt="Miami College of Design" loading="lazy" onerror="this.classList.add('is-broken')">
+          <span class="retrato-fallback">Miami College of Design</span>
+        </a>
+      </article>
+
+      <article class="ficha" id="e10">
+        <div class="ficha-txt">
+          <span class="ficha-num">10 · Deporte</span>
+          <h3>Caribes de Anzoátegui</h3>
+          <p>Club de béisbol profesional venezolano. Noticias, plantilla y calendario de la temporada.</p>
+          <a class="ficha-link" href="https://www.caribesbbc.com/" target="_blank" rel="noopener"><span class="fl">↗</span>caribesbbc.com</a>
+        </div>
+        <a class="retrato" href="https://www.caribesbbc.com/" target="_blank" rel="noopener" aria-label="Abrir caribesbbc.com">
+          <img src="assets/prev-caribes.png" alt="Caribes de Anzoátegui" loading="lazy" onerror="this.classList.add('is-broken')">
+          <span class="retrato-fallback">Caribes de Anzoátegui</span>
+        </a>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACTO ===== -->
+<section id="contacto" class="seccion">
+  <div class="wrap">
+    <div class="contacto-grid">
+      <h2 class="titulo">Enviar información</h2>
+      <div class="datos">
+        <a href="mailto:contacto@nmc-group.com">contacto@nmc-group.com</a>
+        <span class="mono" style="font-size:12px;color:#7E7B73">Caracas · Venezuela</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PIE ===== -->
+<footer>
+  <div class="wrap">
+    <svg class="mark" style="color:#5A5750;width:52px;height:auto;aspect-ratio:1301.29/711.87" aria-hidden="true"><use href="#mark"></use></svg>
+    <span class="copy">&copy; 2026 Nicolás Mangieri</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var pista = document.getElementById('pista');
+  if (!pista) return;
+  var puntos = document.getElementById('puntos');
+  var cards = [].slice.call(pista.querySelectorAll('.card'));
+  var quieto = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function paso(){
+    var c = cards[0];
+    if (!c) return 320;
+    return c.getBoundingClientRect().width + (parseFloat(getComputedStyle(pista).columnGap) || 0);
+  }
+  function visibles(){ return Math.max(1, Math.round(pista.clientWidth / paso())); }
+  function maxIndice(){ return Math.max(0, cards.length - visibles()); }
+  function indice(){ return Math.min(Math.round(pista.scrollLeft / paso()), maxIndice()); }
+  function ir(i){
+    var destino = Math.min(Math.max(i, 0), maxIndice());
+    pista.scrollTo({ left: destino * paso(), behavior: quieto ? 'auto' : 'smooth' });
+  }
+
+  cards.forEach(function(){
+    var p = document.createElement('span');
+    p.className = 'punto';
+    puntos.appendChild(p);
+  });
+  function pintar(){
+    var i = indice(), tope = maxIndice();
+    [].forEach.call(puntos.children, function(p, n){
+      p.classList.toggle('on', n === i);
+      p.style.display = n > tope ? 'none' : '';
+    });
+  }
+  pista.addEventListener('scroll', pintar, { passive: true });
+  window.addEventListener('resize', pintar);
+  pintar();
+
+  [].forEach.call(document.querySelectorAll('.car-btn'), function(b){
+    b.addEventListener('click', function(){
+      ir(indice() + parseInt(b.getAttribute('data-dir'), 10));
+      detener();
+    });
+  });
+
+  // rotacion automatica, se detiene al interactuar
+  var reloj = null;
+  function arrancar(){
+    if (quieto || reloj) return;
+    reloj = setInterval(function(){
+      var i = indice();
+      ir(i >= maxIndice() ? 0 : i + 1);
+    }, 4200);
+  }
+  function detener(){ if (reloj) { clearInterval(reloj); reloj = null; } }
+  pista.addEventListener('mouseenter', detener);
+  pista.addEventListener('focusin', detener);
+  pista.addEventListener('touchstart', detener, { passive: true });
+
+  // solo rota mientras la seccion esta a la vista
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function(ent){
+      if (ent[0].isIntersecting) { arrancar(); } else { detener(); }
+    }, { threshold: .35 }).observe(pista);
+  } else {
+    arrancar();
+  }
+})();
+</script>
+
+</body>
+</html>
