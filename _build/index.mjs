@@ -55,8 +55,30 @@ const SECTORES = [
 
 const byId = Object.fromEntries(EMPRESAS.map(e => [e.id, e]));
 
+// Logo y foto de ambiente de cada empresa.
+//   logo  -> assets/logo-<id>.svg o .png
+//   foto  -> assets/emp-<id>.jpg si ya existe la definitiva; si no, la captura vieja
+//            marcada como provisional (se muestra desenfocada, como textura de fondo).
+for (const e of EMPRESAS) {
+  const svg = `assets/logo-${e.id}.svg`;
+  e.logo = fs.existsSync(`${REPO}/${svg}`) ? svg : `assets/logo-${e.id}.png`;
+  // logos con texto oscuro sobre transparente: se pasan a monocromo claro para que se lean
+  e.claseLogo = ['e06'].includes(e.id) ? ' aclarar' : '';
+  const propia = `assets/emp-${e.id}.jpg`;
+  if (fs.existsSync(`${REPO}/${propia}`)) { e.foto = propia; e.provisional = false; }
+  else { e.foto = e.img; e.provisional = true; }
+}
+const faltan = EMPRESAS.filter(e => e.provisional);
+if (faltan.length) console.log('Sin foto propia todavia:', faltan.map(e => e.id + ' ' + e.nombre).join(', '));
+
+const escena = (e, clase) => `<span class="${clase}${e.provisional ? ' provisional' : ''}">
+            <img class="fondo" src="${e.foto}" alt="" loading="lazy">
+            <span class="velo"></span>
+            <span class="marca"><img class="logo-emp${e.claseLogo}" src="${e.logo}" alt="${e.nombre}" loading="lazy"></span>
+          </span>`;
+
 const tarjetas = EMPRESAS.map(e => `          <a class="card" href="#${e.id}">
-            <span class="card-img"><img src="${e.img}" alt="${e.nombre}" loading="lazy"></span>
+            ${escena(e, 'card-img')}
             <span class="card-pie">
               <span class="n">${e.num}</span>
               <span class="t">${e.nombre}</span>
@@ -83,8 +105,7 @@ const fichas = EMPRESAS.map(e => `      <article class="ficha" id="${e.id}">
           <a class="ficha-link" href="${e.href}" target="_blank" rel="noopener"><span class="fl">↗</span>${e.dom}</a>
         </div>
         <a class="retrato" href="${e.href}" target="_blank" rel="noopener" aria-label="Abrir ${e.dom}">
-          <img src="${e.img}" alt="${e.nombre}" loading="lazy" onerror="this.classList.add('is-broken')">
-          <span class="retrato-fallback">${e.nombre}</span>
+          ${escena(e, 'escena')}
         </a>
       </article>`).join('\n\n');
 
@@ -162,9 +183,17 @@ const html = `<!DOCTYPE html>
   .pista::-webkit-scrollbar{display:none}
   .card{flex:0 0 clamp(240px,30%,340px);scroll-snap-align:start;display:block;text-decoration:none;background:#111110;border:1px solid #1C1B19;transition:border-color .3s}
   .card:hover{border-color:#2E2C28}
-  .card-img{display:block;aspect-ratio:4/3;overflow:hidden;background:#0F0F0E}
-  .card-img img{width:100%;height:100%;object-fit:cover;object-position:top center;filter:grayscale(1) brightness(.92) contrast(1.02);transition:filter .55s ease,transform .9s ease}
-  .card:hover .card-img img{filter:grayscale(0) brightness(1) contrast(1);transform:scale(1.04)}
+  /* escena = foto de ambiente + velo + logo de la empresa encima */
+  .card-img,.escena{display:block;position:relative;aspect-ratio:4/3;overflow:hidden;background:#0F0F0E}
+  .card-img .fondo,.escena .fondo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;filter:grayscale(1) brightness(.8) contrast(1.04);transform:scale(1.04);transition:filter .6s ease,transform 1s ease}
+  .card-img.provisional .fondo,.escena.provisional .fondo{filter:grayscale(1) brightness(.66) contrast(1.06) blur(8px);transform:scale(1.14)}
+  .card-img .velo,.escena .velo{position:absolute;inset:0;background:radial-gradient(74% 74% at 50% 48%,rgba(10,10,11,.28) 0%,rgba(10,10,11,.62) 100%)}
+  .card-img .marca,.escena .marca{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:16% 17%}
+  .card-img .marca img,.escena .marca img{width:auto;max-width:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 6px 26px rgba(0,0,0,.55));transition:filter .45s ease}
+  .card-img .marca img.aclarar,.escena .marca img.aclarar{filter:grayscale(1) invert(1) drop-shadow(0 6px 26px rgba(0,0,0,.55))}
+  .card:hover .marca img.aclarar,.retrato:hover .marca img.aclarar{filter:drop-shadow(0 6px 26px rgba(0,0,0,.55))}
+  .card:hover .card-img .fondo,.retrato:hover .escena .fondo{filter:grayscale(0) brightness(.95) contrast(1);transform:scale(1.09)}
+  .card:hover .card-img.provisional .fondo,.retrato:hover .escena.provisional .fondo{filter:grayscale(0) brightness(.85) contrast(1.02) blur(6px);transform:scale(1.16)}
   .card-pie{display:block;padding:16px 18px 18px;border-top:1px solid #1C1B19}
   .card-pie .n{display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;color:#5A5750}
   .card-pie .t{display:block;margin-top:8px;font-family:'Playfair Display',serif;font-size:19px;line-height:1.2;color:#F6F4F1}
@@ -190,12 +219,8 @@ const html = `<!DOCTYPE html>
   .ficha-link:hover{border-color:#F6F4F1}
   .ficha-link .fl{color:#7E7B73;transition:color .25s,transform .25s}
   .ficha-link:hover .fl{color:#F6F4F1;transform:translate(2px,-2px)}
-  .retrato{display:block;position:relative;overflow:hidden;background:#111110;border:1px solid #1C1B19}
-  .retrato img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:top center;filter:grayscale(1) brightness(.95) contrast(1.02);transition:filter .55s ease,transform .9s ease}
-  .retrato:hover img{filter:grayscale(0) brightness(1) contrast(1);transform:scale(1.03)}
-  .retrato img.is-broken{display:none}
-  .retrato-fallback{display:none;width:100%;aspect-ratio:4/3;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:22px;color:#5A5750;text-align:center;padding:0 24px}
-  .retrato img.is-broken + .retrato-fallback{display:flex}
+  .retrato{display:block;position:relative;overflow:hidden;background:#111110;border:1px solid #1C1B19;transition:border-color .3s}
+  .retrato:hover{border-color:#2E2C28}
 
   /* ---- Contacto y pie ---- */
   #contacto{border-top:1px solid #1C1B19;background:#0C0C0D}

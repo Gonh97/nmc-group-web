@@ -16,7 +16,8 @@ portafolio personal junto con el logo nuevo.
 - HTML/CSS/JS puro (estilos inline en el `<head>` y en los elementos). Sin frameworks.
 - `index.html` — landing principal.
 - `manual-marca.html` — manual de marca. Ya NO está enlazado desde el sitio.
-- `assets/` — `logo-nmc.svg`, `favicon.svg`, `hero.jpg` + 10 capturas `prev-*.png` (temporales).
+- `assets/` — `logo-nmc.svg`, `favicon.svg`, `hero.jpg`, los 10 `logo-e**.png|svg` de cada empresa,
+  las fotos de ambiente `emp-e**.jpg` y las 10 capturas `prev-*.png` (solo de relleno).
 
 ## Sistema de diseño (tokens)
 Rediseño del 2026-09-02: registro editorial oscuro en blanco y negro, sin color de acento.
@@ -60,8 +61,17 @@ En ambos: Claude edita el código → `push` a `main` → se ve en www.nmc-group
 4. `#empresas` — carrusel horizontal de 10 tarjetas 4/3 (`.card` dentro de `.pista`), con
    scroll-snap, flechas, puntos y rotación automática cada 4,2 s. Se detiene al pasar el mouse,
    al tocar o al enfocar, y solo rota mientras la sección está a la vista.
-5. Fichas grandes `.ficha` (`#e01`…`#e10`), alternadas de verdad con `nth-child(even)`. La imagen
-   va limpia (`.retrato`, 4/3), sin marco de navegador: no debe leerse como captura de web.
+5. Fichas grandes `.ficha` (`#e01`…`#e10`), alternadas de verdad con `nth-child(even)`.
+
+**La escena de cada empresa** (misma pieza en la tarjeta del carrusel y en la ficha): foto de
+ambiente de fondo en B/N y bajada de brillo, velo radial encima, y el logo de la empresa centrado.
+Es la receta de `gonza-design`. El script arma cada escena buscando por convención:
+- `assets/logo-<id>.svg` o `.png` para el logo.
+- `assets/emp-<id>.jpg` para la foto definitiva. Si ese archivo no existe, cae a la captura vieja
+  y la marca `.provisional`: se muestra con `blur(8px)` para que lea como textura, no como captura.
+  O sea, **para cerrar una empresa basta con dejar su `emp-<id>.jpg` en `assets/` y regenerar.**
+- Logos con texto oscuro sobre transparente llevan la clase `aclarar` (`grayscale + invert`), que se
+  quita al hover para que vuelva el color real de la marca. Hoy solo lo usa Ibero Seguros (e06).
 6. Contacto: título "Enviar información" y el correo. Sin bloque de manual de marca.
 
 `index.html` se genera con un script de datos (lista `EMPRESAS` + `SECTORES`); si hay que tocar
@@ -71,11 +81,10 @@ textos de varias empresas conviene regenerarlo en vez de editar a mano las 10 fi
 - `manual-marca.html` quedó desenlazado del sitio el 2026-09-02 (el cliente pidió quitar el bloque).
   El archivo sigue en el repo, con el monograma nuevo pero el texto de la marca anterior. Decidir si
   se rehace o se borra.
-- `assets/prev-losandes.png` es una captura fallida (77 KB contra ~1 MB del resto): sale casi en
-  blanco en la grilla. Hay que recapturar seguroslosandes.com.
-- **Imágenes de las empresas.** Las 10 `assets/prev-*.png` son capturas de web y el cliente pidió
-  dejar de apoyarse en ellas. Hay que reemplazarlas por imagen propia de cada empresa (foto de su
-  banco, logo, o imagen generada). Es lo único que falta para cerrar el rediseño.
+- **Faltan 7 fotos de ambiente.** Ya están las de e05, e06 y e09 (generadas). Faltan e01 Saip,
+  e02 Pioneer, e03 Manfreca, e04 GTME, e07 IDET, e08 UNE y e10 Caribes, que hoy salen provisionales.
+  Las candidatas están para filtrar en `contenido/jeme/nmc-group/fotos/`, una carpeta por empresa;
+  la selección la hace el usuario borrando archivos.
 - `logo-nmc-vertical.svg` / `.png` en la carpeta de contenido dicen "NICOLÁS MAGUELI" y usan un
   trazado viejo del monograma. Rehacerlos o descartarlos.
 - La réplica de Figma (`4rRCRcZRwf4IaFEQeAx8Yk`) quedó desactualizada frente a este rediseño.

@@ -72,9 +72,17 @@
   .pista::-webkit-scrollbar{display:none}
   .card{flex:0 0 clamp(240px,30%,340px);scroll-snap-align:start;display:block;text-decoration:none;background:#111110;border:1px solid #1C1B19;transition:border-color .3s}
   .card:hover{border-color:#2E2C28}
-  .card-img{display:block;aspect-ratio:4/3;overflow:hidden;background:#0F0F0E}
-  .card-img img{width:100%;height:100%;object-fit:cover;object-position:top center;filter:grayscale(1) brightness(.92) contrast(1.02);transition:filter .55s ease,transform .9s ease}
-  .card:hover .card-img img{filter:grayscale(0) brightness(1) contrast(1);transform:scale(1.04)}
+  /* escena = foto de ambiente + velo + logo de la empresa encima */
+  .card-img,.escena{display:block;position:relative;aspect-ratio:4/3;overflow:hidden;background:#0F0F0E}
+  .card-img .fondo,.escena .fondo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;filter:grayscale(1) brightness(.8) contrast(1.04);transform:scale(1.04);transition:filter .6s ease,transform 1s ease}
+  .card-img.provisional .fondo,.escena.provisional .fondo{filter:grayscale(1) brightness(.66) contrast(1.06) blur(8px);transform:scale(1.14)}
+  .card-img .velo,.escena .velo{position:absolute;inset:0;background:radial-gradient(74% 74% at 50% 48%,rgba(10,10,11,.28) 0%,rgba(10,10,11,.62) 100%)}
+  .card-img .marca,.escena .marca{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:16% 17%}
+  .card-img .marca img,.escena .marca img{width:auto;max-width:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 6px 26px rgba(0,0,0,.55));transition:filter .45s ease}
+  .card-img .marca img.aclarar,.escena .marca img.aclarar{filter:grayscale(1) invert(1) drop-shadow(0 6px 26px rgba(0,0,0,.55))}
+  .card:hover .marca img.aclarar,.retrato:hover .marca img.aclarar{filter:drop-shadow(0 6px 26px rgba(0,0,0,.55))}
+  .card:hover .card-img .fondo,.retrato:hover .escena .fondo{filter:grayscale(0) brightness(.95) contrast(1);transform:scale(1.09)}
+  .card:hover .card-img.provisional .fondo,.retrato:hover .escena.provisional .fondo{filter:grayscale(0) brightness(.85) contrast(1.02) blur(6px);transform:scale(1.16)}
   .card-pie{display:block;padding:16px 18px 18px;border-top:1px solid #1C1B19}
   .card-pie .n{display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;color:#5A5750}
   .card-pie .t{display:block;margin-top:8px;font-family:'Playfair Display',serif;font-size:19px;line-height:1.2;color:#F6F4F1}
@@ -100,12 +108,8 @@
   .ficha-link:hover{border-color:#F6F4F1}
   .ficha-link .fl{color:#7E7B73;transition:color .25s,transform .25s}
   .ficha-link:hover .fl{color:#F6F4F1;transform:translate(2px,-2px)}
-  .retrato{display:block;position:relative;overflow:hidden;background:#111110;border:1px solid #1C1B19}
-  .retrato img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:top center;filter:grayscale(1) brightness(.95) contrast(1.02);transition:filter .55s ease,transform .9s ease}
-  .retrato:hover img{filter:grayscale(0) brightness(1) contrast(1);transform:scale(1.03)}
-  .retrato img.is-broken{display:none}
-  .retrato-fallback{display:none;width:100%;aspect-ratio:4/3;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:22px;color:#5A5750;text-align:center;padding:0 24px}
-  .retrato img.is-broken + .retrato-fallback{display:flex}
+  .retrato{display:block;position:relative;overflow:hidden;background:#111110;border:1px solid #1C1B19;transition:border-color .3s}
+  .retrato:hover{border-color:#2E2C28}
 
   /* ---- Contacto y pie ---- */
   #contacto{border-top:1px solid #1C1B19;background:#0C0C0D}
@@ -231,7 +235,11 @@
     <div class="carrusel">
       <div class="pista" id="pista">
           <a class="card" href="#e01">
-            <span class="card-img"><img src="assets/prev-saip.png" alt="Saip Service" loading="lazy"></span>
+            <span class="card-img provisional">
+            <img class="fondo" src="assets/prev-saip.png" alt="" loading="lazy">
+            <span class="velo"></span>
+            <span class="marca"><img class="logo-emp" src="assets/logo-e01.png" alt="Saip Service" loading="lazy"></span>
+          </span>
             <span class="card-pie">
               <span class="n">01</span>
               <span class="t">Saip Service</span>
@@ -239,7 +247,11 @@
             </span>
           </a>
           <a class="card" href="#e02">
-            <span class="card-img"><img src="assets/prev-pioneer.png" alt="Pioneer Venezuela" loading="lazy"></span>
+            <span class="card-img provisional">
+            <img class="fondo" src="assets/prev-pioneer.png" alt="" loading="lazy">
+            <span class="velo"></span>
+            <span class="marca"><img class="logo-emp" src="assets/logo-e02.png" alt="Pioneer Venezuela" loading="lazy"></span>
+          </span>
             <span class="card-pie">
               <span class="n">02</span>
               <span class="t">Pioneer Venezuela</span>
@@ -247,7 +259,11 @@
             </span>
           </a>
           <a class="card" href="#e03">
-            <span class="card-img"><img src="assets/prev-manfreca.png" alt="Manfreca" loading="lazy"></span>
+            <span class="card-img provisional">
+            <img class="fondo" src="assets/prev-manfreca.png" alt="" loading="lazy">
+            <span class="velo"></span>
+            <span class="marca"><img class="logo-emp" src="assets/logo-e03.png" alt="Manfreca" loading="lazy"></span>
+          </span>
             <span class="card-pie">
               <span class="n">03</span>
               <span class="t">Manfreca</span>
@@ -255,7 +271,11 @@
             </span>
           </a>
           <a class="card" href="#e04">
-            <span class="card-img"><img src="assets/prev-gtme.png" alt="GTME Service" loading="lazy"></span>
+            <span class="card-img provisional">
+            <img class="fondo" src="assets/prev-gtme.png" alt="" loading="lazy">
+            <span class="velo"></span>
+            <span class="marca"><img class="logo-emp" src="assets/logo-e04.png" alt="GTME Service" loading="lazy"></span>
+          </span>
             <span class="card-pie">
               <span class="n">04</span>
               <span class="t">GTME Service</span>
@@ -263,7 +283,11 @@
             </span>
           </a>
           <a class="card" href="#e05">
-            <span class="card-img"><img src="assets/prev-losandes.png" alt="Seguros Los Andes" loading="lazy"></span>
+            <span class="card-img">
+            <img class="fondo" src="assets/emp-e05.jpg" alt="" loading="lazy">
+            <span class="velo"></span>
+            <span class="marca"><img class="logo-emp" src="assets/logo-e05.png" alt="Seguros Los Andes" loading="lazy"></span>
+          </span>
             <span class="card-pie">
               <span class="n">05</span>
               <span class="t">Seguros Los Andes</span>
@@ -271,7 +295,11 @@
             </span>
           </a>
           <a class="card" href="#e06">
-            <span class="card-img"><img src="assets/prev-ibero.png" alt="Ibero Seguros" loading="lazy"></span>
+            <span class="card-img">
+            <img class="fondo" src="assets/emp-e06.jpg" alt="" loading="lazy">
+            <span class="velo"></span>
+            <span class="marca"><img class="logo-emp aclarar" src="assets/logo-e06.png" alt="Ibero Seguros" loading="lazy"></span>
+          </span>
             <span class="card-pie">
               <span class="n">06</span>
               <span class="t">Ibero Seguros</span>
@@ -279,7 +307,11 @@
             </span>
           </a>
           <a class="card" href="#e07">
-            <span class="card-img"><img src="assets/prev-idet.png" alt="Grupo IDET" loading="lazy"></span>
+            <span class="card-img provisional">
+            <img class="fondo" src="assets/prev-idet.png" alt="" loading="lazy">
+            <span class="velo"></span>
+            <span class="marca"><img class="logo-emp" src="assets/logo-e07.png" alt="Grupo IDET" loading="lazy"></span>
+          </span>
             <span class="card-pie">
               <span class="n">07</span>
               <span class="t">Grupo IDET</span>
@@ -287,7 +319,11 @@
             </span>
           </a>
           <a class="card" href="#e08">
-            <span class="card-img"><img src="assets/prev-une.png" alt="Universidad Nueva Esparta" loading="lazy"></span>
+            <span class="card-img provisional">
+            <img class="fondo" src="assets/prev-une.png" alt="" loading="lazy">
+            <span class="velo"></span>
+            <span class="marca"><img class="logo-emp" src="assets/logo-e08.png" alt="Universidad Nueva Esparta" loading="lazy"></span>
+          </span>
             <span class="card-pie">
               <span class="n">08</span>
               <span class="t">Universidad Nueva Esparta</span>
@@ -295,7 +331,11 @@
             </span>
           </a>
           <a class="card" href="#e09">
-            <span class="card-img"><img src="assets/prev-miamicollege.png" alt="Miami College of Design" loading="lazy"></span>
+            <span class="card-img">
+            <img class="fondo" src="assets/emp-e09.jpg" alt="" loading="lazy">
+            <span class="velo"></span>
+            <span class="marca"><img class="logo-emp" src="assets/logo-e09.svg" alt="Miami College of Design" loading="lazy"></span>
+          </span>
             <span class="card-pie">
               <span class="n">09</span>
               <span class="t">Miami College of Design</span>
@@ -303,7 +343,11 @@
             </span>
           </a>
           <a class="card" href="#e10">
-            <span class="card-img"><img src="assets/prev-caribes.png" alt="Caribes de Anzoátegui" loading="lazy"></span>
+            <span class="card-img provisional">
+            <img class="fondo" src="assets/prev-caribes.png" alt="" loading="lazy">
+            <span class="velo"></span>
+            <span class="marca"><img class="logo-emp" src="assets/logo-e10.png" alt="Caribes de Anzoátegui" loading="lazy"></span>
+          </span>
             <span class="card-pie">
               <span class="n">10</span>
               <span class="t">Caribes de Anzoátegui</span>
@@ -333,8 +377,11 @@
           <a class="ficha-link" href="https://www.saipservice.com/" target="_blank" rel="noopener"><span class="fl">↗</span>saipservice.com</a>
         </div>
         <a class="retrato" href="https://www.saipservice.com/" target="_blank" rel="noopener" aria-label="Abrir saipservice.com">
-          <img src="assets/prev-saip.png" alt="Saip Service" loading="lazy" onerror="this.classList.add('is-broken')">
-          <span class="retrato-fallback">Saip Service</span>
+          <span class="escena provisional">
+            <img class="fondo" src="assets/prev-saip.png" alt="" loading="lazy">
+            <span class="velo"></span>
+            <span class="marca"><img class="logo-emp" src="assets/logo-e01.png" alt="Saip Service" loading="lazy"></span>
+          </span>
         </a>
       </article>
 
@@ -346,8 +393,11 @@
           <a class="ficha-link" href="https://www.pioneervenezuela.com/" target="_blank" rel="noopener"><span class="fl">↗</span>pioneervenezuela.com</a>
         </div>
         <a class="retrato" href="https://www.pioneervenezuela.com/" target="_blank" rel="noopener" aria-label="Abrir pioneervenezuela.com">
-          <img src="assets/prev-pioneer.png" alt="Pioneer Venezuela" loading="lazy" onerror="this.classList.add('is-broken')">
-          <span class="retrato-fallback">Pioneer Venezuela</span>
+          <span class="escena provisional">
+            <img class="fondo" src="assets/prev-pioneer.png" alt="" loading="lazy">
+            <span class="velo"></span>
+            <span class="marca"><img class="logo-emp" src="assets/logo-e02.png" alt="Pioneer Venezuela" loading="lazy"></span>
+          </span>
         </a>
       </article>
 
@@ -359,8 +409,11 @@
           <a class="ficha-link" href="https://www.manfreca.com/" target="_blank" rel="noopener"><span class="fl">↗</span>manfreca.com</a>
         </div>
         <a class="retrato" href="https://www.manfreca.com/" target="_blank" rel="noopener" aria-label="Abrir manfreca.com">
-          <img src="assets/prev-manfreca.png" alt="Manfreca" loading="lazy" onerror="this.classList.add('is-broken')">
-          <span class="retrato-fallback">Manfreca</span>
+          <span class="escena provisional">
+            <img class="fondo" src="assets/prev-manfreca.png" alt="" loading="lazy">
+            <span class="velo"></span>
+            <span class="marca"><img class="logo-emp" src="assets/logo-e03.png" alt="Manfreca" loading="lazy"></span>
+          </span>
         </a>
       </article>
 
@@ -372,8 +425,11 @@
           <a class="ficha-link" href="https://gtmeservice.com/" target="_blank" rel="noopener"><span class="fl">↗</span>gtmeservice.com</a>
         </div>
         <a class="retrato" href="https://gtmeservice.com/" target="_blank" rel="noopener" aria-label="Abrir gtmeservice.com">
-          <img src="assets/prev-gtme.png" alt="GTME Service" loading="lazy" onerror="this.classList.add('is-broken')">
-          <span class="retrato-fallback">GTME Service</span>
+          <span class="escena provisional">
+            <img class="fondo" src="assets/prev-gtme.png" alt="" loading="lazy">
+            <span class="velo"></span>
+            <span class="marca"><img class="logo-emp" src="assets/logo-e04.png" alt="GTME Service" loading="lazy"></span>
+          </span>
         </a>
       </article>
 
@@ -385,8 +441,11 @@
           <a class="ficha-link" href="https://www.seguroslosandes.com/" target="_blank" rel="noopener"><span class="fl">↗</span>seguroslosandes.com</a>
         </div>
         <a class="retrato" href="https://www.seguroslosandes.com/" target="_blank" rel="noopener" aria-label="Abrir seguroslosandes.com">
-          <img src="assets/prev-losandes.png" alt="Seguros Los Andes" loading="lazy" onerror="this.classList.add('is-broken')">
-          <span class="retrato-fallback">Seguros Los Andes</span>
+          <span class="escena">
+            <img class="fondo" src="assets/emp-e05.jpg" alt="" loading="lazy">
+            <span class="velo"></span>
+            <span class="marca"><img class="logo-emp" src="assets/logo-e05.png" alt="Seguros Los Andes" loading="lazy"></span>
+          </span>
         </a>
       </article>
 
@@ -398,8 +457,11 @@
           <a class="ficha-link" href="https://www.iberoseguros.com/" target="_blank" rel="noopener"><span class="fl">↗</span>iberoseguros.com</a>
         </div>
         <a class="retrato" href="https://www.iberoseguros.com/" target="_blank" rel="noopener" aria-label="Abrir iberoseguros.com">
-          <img src="assets/prev-ibero.png" alt="Ibero Seguros" loading="lazy" onerror="this.classList.add('is-broken')">
-          <span class="retrato-fallback">Ibero Seguros</span>
+          <span class="escena">
+            <img class="fondo" src="assets/emp-e06.jpg" alt="" loading="lazy">
+            <span class="velo"></span>
+            <span class="marca"><img class="logo-emp aclarar" src="assets/logo-e06.png" alt="Ibero Seguros" loading="lazy"></span>
+          </span>
         </a>
       </article>
 
@@ -411,8 +473,11 @@
           <a class="ficha-link" href="https://grupoidet.com/" target="_blank" rel="noopener"><span class="fl">↗</span>grupoidet.com</a>
         </div>
         <a class="retrato" href="https://grupoidet.com/" target="_blank" rel="noopener" aria-label="Abrir grupoidet.com">
-          <img src="assets/prev-idet.png" alt="Grupo IDET" loading="lazy" onerror="this.classList.add('is-broken')">
-          <span class="retrato-fallback">Grupo IDET</span>
+          <span class="escena provisional">
+            <img class="fondo" src="assets/prev-idet.png" alt="" loading="lazy">
+            <span class="velo"></span>
+            <span class="marca"><img class="logo-emp" src="assets/logo-e07.png" alt="Grupo IDET" loading="lazy"></span>
+          </span>
         </a>
       </article>
 
@@ -424,8 +489,11 @@
           <a class="ficha-link" href="https://une.edu.ve/" target="_blank" rel="noopener"><span class="fl">↗</span>une.edu.ve</a>
         </div>
         <a class="retrato" href="https://une.edu.ve/" target="_blank" rel="noopener" aria-label="Abrir une.edu.ve">
-          <img src="assets/prev-une.png" alt="Universidad Nueva Esparta" loading="lazy" onerror="this.classList.add('is-broken')">
-          <span class="retrato-fallback">Universidad Nueva Esparta</span>
+          <span class="escena provisional">
+            <img class="fondo" src="assets/prev-une.png" alt="" loading="lazy">
+            <span class="velo"></span>
+            <span class="marca"><img class="logo-emp" src="assets/logo-e08.png" alt="Universidad Nueva Esparta" loading="lazy"></span>
+          </span>
         </a>
       </article>
 
@@ -437,8 +505,11 @@
           <a class="ficha-link" href="https://miamicollegedesign.github.io/" target="_blank" rel="noopener"><span class="fl">↗</span>miamicollegedesign.github.io</a>
         </div>
         <a class="retrato" href="https://miamicollegedesign.github.io/" target="_blank" rel="noopener" aria-label="Abrir miamicollegedesign.github.io">
-          <img src="assets/prev-miamicollege.png" alt="Miami College of Design" loading="lazy" onerror="this.classList.add('is-broken')">
-          <span class="retrato-fallback">Miami College of Design</span>
+          <span class="escena">
+            <img class="fondo" src="assets/emp-e09.jpg" alt="" loading="lazy">
+            <span class="velo"></span>
+            <span class="marca"><img class="logo-emp" src="assets/logo-e09.svg" alt="Miami College of Design" loading="lazy"></span>
+          </span>
         </a>
       </article>
 
@@ -450,8 +521,11 @@
           <a class="ficha-link" href="https://www.caribesbbc.com/" target="_blank" rel="noopener"><span class="fl">↗</span>caribesbbc.com</a>
         </div>
         <a class="retrato" href="https://www.caribesbbc.com/" target="_blank" rel="noopener" aria-label="Abrir caribesbbc.com">
-          <img src="assets/prev-caribes.png" alt="Caribes de Anzoátegui" loading="lazy" onerror="this.classList.add('is-broken')">
-          <span class="retrato-fallback">Caribes de Anzoátegui</span>
+          <span class="escena provisional">
+            <img class="fondo" src="assets/prev-caribes.png" alt="" loading="lazy">
+            <span class="velo"></span>
+            <span class="marca"><img class="logo-emp" src="assets/logo-e10.png" alt="Caribes de Anzoátegui" loading="lazy"></span>
+          </span>
         </a>
       </article>
 
