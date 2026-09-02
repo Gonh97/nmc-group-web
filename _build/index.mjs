@@ -34,21 +34,22 @@ const EMPRESAS = [
     desc:'Club de béisbol profesional venezolano. Noticias, plantilla y calendario de la temporada.' },
 ];
 
+// Los textos van en columnas, asi que se mantienen cortos y de largo parejo entre si.
 const SECTORES = [
   { num:'01', nombre:'Ingeniería y energía',
-    texto:'El núcleo del grupo. Cuatro firmas que diseñan, construyen y mantienen la infraestructura de la industria petrolera y eléctrica venezolana, con trayectorias que van de las tres a las cuatro décadas.',
+    texto:'El núcleo del grupo. Cuatro firmas que construyen y mantienen la infraestructura petrolera y eléctrica del país.',
     ids:['e01','e02','e03','e04'] },
   { num:'02', nombre:'Seguros',
     texto:'Dos aseguradoras con cobertura para personas, patrimonio, vehículos y empresas.',
     ids:['e05','e06'] },
   { num:'03', nombre:'Salud',
-    texto:'Atención médica integral con equipo multidisciplinario.',
+    texto:'Atención médica integral con un equipo multidisciplinario y especializado.',
     ids:['e07'] },
   { num:'04', nombre:'Educación',
     texto:'Formación universitaria en Venezuela y una escuela de diseño en Miami.',
     ids:['e08','e09'] },
   { num:'05', nombre:'Deporte',
-    texto:'Béisbol profesional venezolano.',
+    texto:'Béisbol profesional venezolano: temporada, plantilla y afición.',
     ids:['e10'] },
 ];
 
@@ -89,12 +90,10 @@ const tarjetas = EMPRESAS.map(e => `          <a class="card" href="#${e.id}">
 
 const sectores = SECTORES.map(s => `      <div class="sector">
         <span class="num">${s.num}</span>
-        <div>
-          <h3>${s.nombre}</h3>
-          <p>${s.texto}</p>
-          <div class="lista">
-${s.ids.map(id => `            <a href="#${byId[id].id}">${byId[id].nombre}</a>`).join('\n')}
-          </div>
+        <h3>${s.nombre}</h3>
+        <p>${s.texto}</p>
+        <div class="lista">
+${s.ids.map(id => `          <a href="#${byId[id].id}">${byId[id].nombre}</a>`).join('\n')}
         </div>
       </div>`).join('\n');
 
@@ -167,16 +166,17 @@ const html = `<!DOCTYPE html>
   .cabecera{display:flex;align-items:baseline;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:clamp(30px,4vw,52px)}
   .cabecera .conteo{font-size:12px;color:#5A5750}
 
-  /* ---- Sectores ---- */
-  .sectores{display:grid;grid-template-columns:1fr;gap:0}
-  @media (min-width:960px){ .sectores{grid-template-columns:minmax(260px,.72fr) 1.28fr;column-gap:clamp(40px,6vw,110px)} .sectores > .titulo{grid-row:span 5;align-self:start;position:sticky;top:120px} }
-  .sector{display:grid;grid-template-columns:auto 1fr;column-gap:clamp(20px,3vw,40px);padding:clamp(24px,3vw,34px) 0;border-top:1px solid #1C1B19}
-  .sector:last-child{border-bottom:1px solid #1C1B19}
-  .sector .num{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;color:#5A5750;padding-top:9px}
-  .sector h3{margin:0;font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(20px,2.2vw,27px);letter-spacing:-.005em}
-  .sector p{margin:12px 0 0;font-size:15.5px;line-height:1.65;color:#A9A49A;max-width:56ch}
-  .sector .lista{display:flex;flex-wrap:wrap;gap:12px 26px;margin-top:20px}
-  .sector .lista a{font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.05em;color:#A9A49A;text-decoration:none;border-bottom:1px solid #2E2C28;padding-bottom:5px;transition:color .25s,border-color .25s}
+  /* ---- Sectores: cinco columnas en fila, separadas por filete ---- */
+  .sectores{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:#1C1B19;border-top:1px solid #1C1B19;border-bottom:1px solid #1C1B19}
+  @media (max-width:1080px){ .sectores{grid-template-columns:repeat(3,1fr)} }
+  @media (max-width:680px){ .sectores{grid-template-columns:repeat(2,1fr)} }
+  @media (max-width:420px){ .sectores{grid-template-columns:1fr} }
+  .sector{background:#0A0A0B;display:flex;flex-direction:column;padding:clamp(22px,2.4vw,30px) clamp(14px,1.5vw,22px)}
+  .sector .num{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.14em;color:#5A5750;margin-bottom:14px}
+  .sector h3{margin:0;font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(19px,1.9vw,23px);line-height:1.15;letter-spacing:-.005em}
+  .sector p{margin:11px 0 0;font-size:14px;line-height:1.6;color:#A9A49A}
+  .sector .lista{display:flex;flex-direction:column;align-items:flex-start;gap:9px;margin-top:auto;padding-top:22px}
+  .sector .lista a{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.04em;color:#A9A49A;text-decoration:none;border-bottom:1px solid #2E2C28;padding-bottom:4px;transition:color .25s,border-color .25s}
   .sector .lista a:hover{color:#F6F4F1;border-color:#F6F4F1}
 
   /* ---- Carrusel de empresas ---- */
@@ -281,8 +281,11 @@ ${PATHS}
 <!-- ===== SECTORES ===== -->
 <section id="sectores" class="seccion">
   <div class="wrap">
+    <div class="cabecera">
+      <h2 class="titulo">Cinco sectores</h2>
+      <span class="conteo mono">10 empresas</span>
+    </div>
     <div class="sectores">
-      <h2 class="titulo">Cinco<br>sectores</h2>
 ${sectores}
     </div>
   </div>

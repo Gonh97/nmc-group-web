@@ -54,16 +54,17 @@
   .cabecera{display:flex;align-items:baseline;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:clamp(30px,4vw,52px)}
   .cabecera .conteo{font-size:12px;color:#5A5750}
 
-  /* ---- Sectores ---- */
-  .sectores{display:grid;grid-template-columns:1fr;gap:0}
-  @media (min-width:960px){ .sectores{grid-template-columns:minmax(260px,.72fr) 1.28fr;column-gap:clamp(40px,6vw,110px)} .sectores > .titulo{grid-row:span 5;align-self:start;position:sticky;top:120px} }
-  .sector{display:grid;grid-template-columns:auto 1fr;column-gap:clamp(20px,3vw,40px);padding:clamp(24px,3vw,34px) 0;border-top:1px solid #1C1B19}
-  .sector:last-child{border-bottom:1px solid #1C1B19}
-  .sector .num{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;color:#5A5750;padding-top:9px}
-  .sector h3{margin:0;font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(20px,2.2vw,27px);letter-spacing:-.005em}
-  .sector p{margin:12px 0 0;font-size:15.5px;line-height:1.65;color:#A9A49A;max-width:56ch}
-  .sector .lista{display:flex;flex-wrap:wrap;gap:12px 26px;margin-top:20px}
-  .sector .lista a{font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.05em;color:#A9A49A;text-decoration:none;border-bottom:1px solid #2E2C28;padding-bottom:5px;transition:color .25s,border-color .25s}
+  /* ---- Sectores: cinco columnas en fila, separadas por filete ---- */
+  .sectores{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:#1C1B19;border-top:1px solid #1C1B19;border-bottom:1px solid #1C1B19}
+  @media (max-width:1080px){ .sectores{grid-template-columns:repeat(3,1fr)} }
+  @media (max-width:680px){ .sectores{grid-template-columns:repeat(2,1fr)} }
+  @media (max-width:420px){ .sectores{grid-template-columns:1fr} }
+  .sector{background:#0A0A0B;display:flex;flex-direction:column;padding:clamp(22px,2.4vw,30px) clamp(14px,1.5vw,22px)}
+  .sector .num{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.14em;color:#5A5750;margin-bottom:14px}
+  .sector h3{margin:0;font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(19px,1.9vw,23px);line-height:1.15;letter-spacing:-.005em}
+  .sector p{margin:11px 0 0;font-size:14px;line-height:1.6;color:#A9A49A}
+  .sector .lista{display:flex;flex-direction:column;align-items:flex-start;gap:9px;margin-top:auto;padding-top:22px}
+  .sector .lista a{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.04em;color:#A9A49A;text-decoration:none;border-bottom:1px solid #2E2C28;padding-bottom:4px;transition:color .25s,border-color .25s}
   .sector .lista a:hover{color:#F6F4F1;border-color:#F6F4F1}
 
   /* ---- Carrusel de empresas ---- */
@@ -169,61 +170,54 @@
 <!-- ===== SECTORES ===== -->
 <section id="sectores" class="seccion">
   <div class="wrap">
+    <div class="cabecera">
+      <h2 class="titulo">Cinco sectores</h2>
+      <span class="conteo mono">10 empresas</span>
+    </div>
     <div class="sectores">
-      <h2 class="titulo">Cinco<br>sectores</h2>
       <div class="sector">
         <span class="num">01</span>
-        <div>
-          <h3>Ingeniería y energía</h3>
-          <p>El núcleo del grupo. Cuatro firmas que diseñan, construyen y mantienen la infraestructura de la industria petrolera y eléctrica venezolana, con trayectorias que van de las tres a las cuatro décadas.</p>
-          <div class="lista">
-            <a href="#e01">Saip Service</a>
-            <a href="#e02">Pioneer Venezuela</a>
-            <a href="#e03">Manfreca</a>
-            <a href="#e04">GTME Service</a>
-          </div>
+        <h3>Ingeniería y energía</h3>
+        <p>El núcleo del grupo. Cuatro firmas que construyen y mantienen la infraestructura petrolera y eléctrica del país.</p>
+        <div class="lista">
+          <a href="#e01">Saip Service</a>
+          <a href="#e02">Pioneer Venezuela</a>
+          <a href="#e03">Manfreca</a>
+          <a href="#e04">GTME Service</a>
         </div>
       </div>
       <div class="sector">
         <span class="num">02</span>
-        <div>
-          <h3>Seguros</h3>
-          <p>Dos aseguradoras con cobertura para personas, patrimonio, vehículos y empresas.</p>
-          <div class="lista">
-            <a href="#e05">Seguros Los Andes</a>
-            <a href="#e06">Ibero Seguros</a>
-          </div>
+        <h3>Seguros</h3>
+        <p>Dos aseguradoras con cobertura para personas, patrimonio, vehículos y empresas.</p>
+        <div class="lista">
+          <a href="#e05">Seguros Los Andes</a>
+          <a href="#e06">Ibero Seguros</a>
         </div>
       </div>
       <div class="sector">
         <span class="num">03</span>
-        <div>
-          <h3>Salud</h3>
-          <p>Atención médica integral con equipo multidisciplinario.</p>
-          <div class="lista">
-            <a href="#e07">Grupo IDET</a>
-          </div>
+        <h3>Salud</h3>
+        <p>Atención médica integral con un equipo multidisciplinario y especializado.</p>
+        <div class="lista">
+          <a href="#e07">Grupo IDET</a>
         </div>
       </div>
       <div class="sector">
         <span class="num">04</span>
-        <div>
-          <h3>Educación</h3>
-          <p>Formación universitaria en Venezuela y una escuela de diseño en Miami.</p>
-          <div class="lista">
-            <a href="#e08">Universidad Nueva Esparta</a>
-            <a href="#e09">Miami College of Design</a>
-          </div>
+        <h3>Educación</h3>
+        <p>Formación universitaria en Venezuela y una escuela de diseño en Miami.</p>
+        <div class="lista">
+          <a href="#e08">Universidad Nueva Esparta</a>
+          <a href="#e09">Miami College of Design</a>
         </div>
       </div>
       <div class="sector">
         <span class="num">05</span>
-        <div>
-          <h3>Deporte</h3>
-          <p>Béisbol profesional venezolano.</p>
-          <div class="lista">
-            <a href="#e10">Caribes de Anzoátegui</a>
-          </div>
+        <h3>Deporte</h3>
+        <p>Béisbol profesional venezolano: temporada, plantilla y afición.</p>
+        <div class="lista">
+          <a href="#e10">Caribes de Anzoátegui</a>
         </div>
       </div>
     </div>

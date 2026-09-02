@@ -57,8 +57,14 @@ En ambos: Claude edita el código → `push` a `main` → se ve en www.nmc-group
 ## Estructura de `index.html` (post rediseño)
 1. Nav pegajoso con el lockup horizontal.
 2. Hero a sangre sobre `assets/hero.jpg` (foto B/N generada), monograma + nombre + una línea.
-3. `#sectores` — título grande a la izquierda y lista numerada 01-05 con filetes a la derecha;
-   cada empresa del sector es un ancla a su ficha. Es el bloque de navegación.
+3. `#sectores` — cinco columnas en fila separadas por filete (`.sectores` con `gap:1px` sobre
+   fondo `#1C1B19`, que da hairlines limpios en cualquier configuración de wrap). Cada columna:
+   número, sector en Playfair, texto corto y las empresas como anclas a su banda. Es el bloque de
+   navegación. Pasó de vertical a horizontal el 2026-09-02 porque alargaba demasiado la página:
+   751 px contra 1167 px. Los textos se mantienen cortos y parejos entre sí porque van en columnas,
+   y `.lista` lleva `margin-top:auto` para que los cinco listados terminen en la misma línea; para
+   eso `.sector` tiene que ser flex y los hijos directos, sin div intermedio.
+   Quiebres: 5 columnas, 3 bajo 1080 px, 2 bajo 680 px, 1 bajo 420 px.
 4. `#empresas` — carrusel horizontal de 10 tarjetas 4/3 (`.card` dentro de `.pista`), con
    scroll-snap, flechas, puntos y rotación automática cada 4,2 s. Se detiene al pasar el mouse,
    al tocar o al enfocar, y solo rota mientras la sección está a la vista.
