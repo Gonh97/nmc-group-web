@@ -16,8 +16,9 @@ portafolio personal junto con el logo nuevo.
 - HTML/CSS/JS puro (estilos inline en el `<head>` y en los elementos). Sin frameworks.
 - `index.html` — landing principal.
 - `manual-marca.html` — manual de marca. Ya NO está enlazado desde el sitio.
-- `assets/` — `logo-nmc.svg`, `favicon.svg`, `hero.jpg`, los 10 `logo-e**.png|svg` de cada empresa,
-  las fotos de ambiente `emp-e**.jpg` y las 10 capturas `prev-*.png` (solo de relleno).
+- `assets/` — `logo-nmc.svg`, `favicon.svg`, `hero.jpg`, los 10 `logo-e**.png|svg` de cada empresa
+  y las 10 imágenes de banda `emp-e**.jpg` (1920 px de ancho, JPEG 78, ~170 KB cada una).
+  Las 10 `prev-*.png` quedaron sin uso: eran las capturas de web, 7,9 MB en total.
 
 ## Sistema de diseño (tokens)
 Rediseño del 2026-09-02: registro editorial oscuro en blanco y negro, sin color de acento.
@@ -61,18 +62,30 @@ En ambos: Claude edita el código → `push` a `main` → se ve en www.nmc-group
 4. `#empresas` — carrusel horizontal de 10 tarjetas 4/3 (`.card` dentro de `.pista`), con
    scroll-snap, flechas, puntos y rotación automática cada 4,2 s. Se detiene al pasar el mouse,
    al tocar o al enfocar, y solo rota mientras la sección está a la vista.
-5. Fichas grandes `.ficha` (`#e01`…`#e10`), alternadas de verdad con `nth-child(even)`.
+5. Una banda `.banda` por empresa (`#e01`…`#e10`): imagen a lo ancho de toda la pantalla, velo
+   direccional (profundo a la izquierda donde va el texto, abierto a la derecha donde se ve la foto)
+   y el texto encima. Reemplazó a las fichas alternadas a dos columnas el 2026-09-02.
 
 **La escena de cada empresa** (misma pieza en la tarjeta del carrusel y en la ficha): foto de
 ambiente de fondo en B/N y bajada de brillo, velo radial encima, y el logo de la empresa centrado.
 Es la receta de `gonza-design`. El script arma cada escena buscando por convención:
 - `assets/logo-<id>.svg` o `.png` para el logo.
-- `assets/emp-<id>.jpg` para la foto definitiva. Si ese archivo no existe, cae a la captura vieja
-  y la marca `.provisional`: se muestra con `blur(8px)` para que lea como textura, no como captura.
-  O sea, **para cerrar una empresa basta con dejar su `emp-<id>.jpg` en `assets/` y regenerar.**
-- Logos con texto oscuro sobre transparente llevan la clase `aclarar` (`grayscale + invert`), que se
-  quita al hover para que vuelva el color real de la marca. Hoy solo lo usa Ibero Seguros (e06).
-6. Contacto: título "Enviar información" y el correo. Sin bloque de manual de marca.
+- `assets/emp-<id>.jpg` para la imagen. Las 10 están completas desde el 2026-09-02. Si faltara alguna,
+  el script cae a la captura vieja y la marca `.provisional` (desenfocada). **Para cambiar la imagen de
+  una empresa basta con reemplazar su `emp-<id>.jpg` y correr `node _build/index.mjs`.**
+- Las imágenes de banda van **a color y nítidas**: en la banda el texto ocupa solo el tercio izquierdo,
+  así que el velo hunde ese lado y la foto se ve limpia a la derecha. Decisión del cliente 2026-09-02.
+  Manfreca y GTME usan fotos reales sacadas de sus propios repos; las otras ocho son generadas en
+  registro documental a color, con el tercio izquierdo despejado pedido en el prompt.
+  Chequeo útil: el brillo medio de la mitad derecha no debe bajar de ~80 sobre 255, o la banda se
+  ve negra (le pasó a la primera de Caribes, que salió nocturna con 43 y hubo que rehacerla de día).
+- **Todos los logos van en blanco.** Llevan la clase `blanquear` (`brightness(0) invert(1)`), que
+  los deja como silueta blanca conservando forma y huecos transparentes. Decisión del cliente
+  (2026-09-02): en color se perdían y el muro quedaba disparejo. Al hover vuelve el color real de la
+  marca, salvo Miami College (e09) y Caribes (e10), que llevan además la clase `fijo` porque su
+  archivo fuente ya es una silueta negra sobre transparente y en color no sirve sobre fondo oscuro.
+  Para esos dos se cambió la fuente: `MIAMI-ICON-BLUE2.svg` y `safari-pinned-tab.svg` de sus sitios,
+  ambos sin fondo sólido. `_build/_contraste.html` compara tratamientos sobre fondo de escena.
 
 `index.html` se genera con un script de datos (lista `EMPRESAS` + `SECTORES`); si hay que tocar
 textos de varias empresas conviene regenerarlo en vez de editar a mano las 10 fichas.
@@ -81,10 +94,10 @@ textos de varias empresas conviene regenerarlo en vez de editar a mano las 10 fi
 - `manual-marca.html` quedó desenlazado del sitio el 2026-09-02 (el cliente pidió quitar el bloque).
   El archivo sigue en el repo, con el monograma nuevo pero el texto de la marca anterior. Decidir si
   se rehace o se borra.
-- **Faltan 7 fotos de ambiente.** Ya están las de e05, e06 y e09 (generadas). Faltan e01 Saip,
-  e02 Pioneer, e03 Manfreca, e04 GTME, e07 IDET, e08 UNE y e10 Caribes, que hoy salen provisionales.
-  Las candidatas están para filtrar en `contenido/jeme/nmc-group/fotos/`, una carpeta por empresa;
-  la selección la hace el usuario borrando archivos.
+- **Foto del equipo de Caribes.** La banda usa una escena de béisbol generada. Se rastreó
+  caribesbbc.com y sus subpáginas: solo publican banners de patrocinadores y logos, no hay roster ni
+  galería. No se usaron fotos de prensa de internet por derechos. Si el cliente pasa una foto real
+  del equipo, reemplaza a `assets/emp-e10.jpg`.
 - `logo-nmc-vertical.svg` / `.png` en la carpeta de contenido dicen "NICOLÁS MAGUELI" y usan un
   trazado viejo del monograma. Rehacerlos o descartarlos.
 - La réplica de Figma (`4rRCRcZRwf4IaFEQeAx8Yk`) quedó desactualizada frente a este rediseño.

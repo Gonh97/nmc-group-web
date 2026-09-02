@@ -11,27 +11,26 @@ const logo = fs.readFileSync(`${REPO}/assets/logo-nmc.svg`, 'utf8');
 const VB = logo.match(/viewBox="([^"]+)"/)[1];
 const PATHS = [...logo.matchAll(/<path[^>]*\/>/g)].map(m => '    ' + m[0]).join('\n');
 
-// img: por ahora la captura del sitio. Se reemplaza por la imagen propia de cada empresa.
 const EMPRESAS = [
-  { id:'e01', num:'01', nombre:'Saip Service', sector:'Ingeniería y energía', dom:'saipservice.com', href:'https://www.saipservice.com/', img:'assets/prev-saip.png',
+  { id:'e01', num:'01', nombre:'Saip Service', sector:'Ingeniería y energía', dom:'saipservice.com', href:'https://www.saipservice.com/',
     desc:'Firma de ingeniería industrial con más de 28 años de precisión multidisciplinaria en proyectos de energía, petróleo e infraestructura en Venezuela.' },
-  { id:'e02', num:'02', nombre:'Pioneer Venezuela', sector:'Ingeniería y energía', dom:'pioneervenezuela.com', href:'https://www.pioneervenezuela.com/', img:'assets/prev-pioneer.png',
+  { id:'e02', num:'02', nombre:'Pioneer Venezuela', sector:'Ingeniería y energía', dom:'pioneervenezuela.com', href:'https://www.pioneervenezuela.com/',
     desc:'Servicios petroleros especializados en wireline, saneamiento ambiental y desarrollo de gas. Más de 30 años operando en campo para la industria venezolana.' },
-  { id:'e03', num:'03', nombre:'Manfreca', sector:'Ingeniería y energía', dom:'manfreca.com', href:'https://www.manfreca.com/', img:'assets/prev-manfreca.png',
+  { id:'e03', num:'03', nombre:'Manfreca', sector:'Ingeniería y energía', dom:'manfreca.com', href:'https://www.manfreca.com/',
     desc:'Ingeniería y construcción integral. Más de 40 años ejecutando obras de infraestructura con autonomía total, combinando experiencia comprobada y tecnología.' },
-  { id:'e04', num:'04', nombre:'GTME Service', sector:'Ingeniería y energía', dom:'gtmeservice.com', href:'https://gtmeservice.com/', img:'assets/prev-gtme.png',
+  { id:'e04', num:'04', nombre:'GTME Service', sector:'Ingeniería y energía', dom:'gtmeservice.com', href:'https://gtmeservice.com/',
     desc:'Ingeniería eléctrica e infraestructura industrial. Cuatro décadas modernizando plantas, subestaciones y sistemas de control (SCADA, PLCs y redes industriales) sin detener la producción.' },
-  { id:'e05', num:'05', nombre:'Seguros Los Andes', sector:'Seguros', dom:'seguroslosandes.com', href:'https://www.seguroslosandes.com/', img:'assets/prev-losandes.png',
+  { id:'e05', num:'05', nombre:'Seguros Los Andes', sector:'Seguros', dom:'seguroslosandes.com', href:'https://www.seguroslosandes.com/',
     desc:'Compañía aseguradora venezolana con pólizas para personas, patrimonio y vehículos.' },
-  { id:'e06', num:'06', nombre:'Ibero Seguros', sector:'Seguros', dom:'iberoseguros.com', href:'https://www.iberoseguros.com/', img:'assets/prev-ibero.png',
+  { id:'e06', num:'06', nombre:'Ibero Seguros', sector:'Seguros', dom:'iberoseguros.com', href:'https://www.iberoseguros.com/',
     desc:'Aseguradora con portal de clientes en línea y cobertura integral para personas y empresas.' },
-  { id:'e07', num:'07', nombre:'Grupo IDET', sector:'Salud', dom:'grupoidet.com', href:'https://grupoidet.com/', img:'assets/prev-idet.png',
+  { id:'e07', num:'07', nombre:'Grupo IDET', sector:'Salud', dom:'grupoidet.com', href:'https://grupoidet.com/',
     desc:'Atención médica integral con un equipo multidisciplinario y especializado al cuidado de tu salud.' },
-  { id:'e08', num:'08', nombre:'Universidad Nueva Esparta', sector:'Educación', dom:'une.edu.ve', href:'https://une.edu.ve/', img:'assets/prev-une.png',
+  { id:'e08', num:'08', nombre:'Universidad Nueva Esparta', sector:'Educación', dom:'une.edu.ve', href:'https://une.edu.ve/',
     desc:'Institución universitaria venezolana con pregrado y postgrado y formación integral por competencias.' },
-  { id:'e09', num:'09', nombre:'Miami College of Design', sector:'Educación', dom:'miamicollegedesign.github.io', href:'https://miamicollegedesign.github.io/', img:'assets/prev-miamicollege.png',
+  { id:'e09', num:'09', nombre:'Miami College of Design', sector:'Educación', dom:'miamicollegedesign.github.io', href:'https://miamicollegedesign.github.io/',
     desc:'Escuela de diseño con formación creativa y proyectos de sus estudiantes.' },
-  { id:'e10', num:'10', nombre:'Caribes de Anzoátegui', sector:'Deporte', dom:'caribesbbc.com', href:'https://www.caribesbbc.com/', img:'assets/prev-caribes.png',
+  { id:'e10', num:'10', nombre:'Caribes de Anzoátegui', sector:'Deporte', dom:'caribesbbc.com', href:'https://www.caribesbbc.com/',
     desc:'Club de béisbol profesional venezolano. Noticias, plantilla y calendario de la temporada.' },
 ];
 
@@ -55,21 +54,23 @@ const SECTORES = [
 
 const byId = Object.fromEntries(EMPRESAS.map(e => [e.id, e]));
 
-// Logo y foto de ambiente de cada empresa.
-//   logo  -> assets/logo-<id>.svg o .png
-//   foto  -> assets/emp-<id>.jpg si ya existe la definitiva; si no, la captura vieja
-//            marcada como provisional (se muestra desenfocada, como textura de fondo).
+// Logo e imagen de banda de cada empresa, por convencion de nombre:
+//   logo -> assets/logo-<id>.svg o .png
+//   foto -> assets/emp-<id>.jpg
+// Para cambiar la imagen de una empresa basta con reemplazar su archivo y volver a correr esto.
 for (const e of EMPRESAS) {
   const svg = `assets/logo-${e.id}.svg`;
   e.logo = fs.existsSync(`${REPO}/${svg}`) ? svg : `assets/logo-${e.id}.png`;
-  // logos con texto oscuro sobre transparente: se pasan a monocromo claro para que se lean
-  e.claseLogo = ['e06'].includes(e.id) ? ' aclarar' : '';
-  const propia = `assets/emp-${e.id}.jpg`;
-  if (fs.existsSync(`${REPO}/${propia}`)) { e.foto = propia; e.provisional = false; }
-  else { e.foto = e.img; e.provisional = true; }
+  // Todos los logos van en blanco puro: brightness(0) invert(1) conserva la forma y los huecos
+  // transparentes. Da un muro homogeneo y evita que los de color se pierdan sobre la foto.
+  // Al hover vuelve el color real de la marca, salvo en los que la fuente ya es una silueta
+  // negra (e09 y e10): esos quedan siempre en blanco porque su original no sirve sobre oscuro.
+  e.claseLogo = ' blanquear' + (['e09','e10'].includes(e.id) ? ' fijo' : '');
+  e.foto = `assets/emp-${e.id}.jpg`;
+  e.provisional = !fs.existsSync(`${REPO}/${e.foto}`);
 }
 const faltan = EMPRESAS.filter(e => e.provisional);
-if (faltan.length) console.log('Sin foto propia todavia:', faltan.map(e => e.id + ' ' + e.nombre).join(', '));
+if (faltan.length) console.log('FALTA la imagen de:', faltan.map(e => e.id).join(', '));
 
 const escena = (e, clase) => `<span class="${clase}${e.provisional ? ' provisional' : ''}">
             <img class="fondo" src="${e.foto}" alt="" loading="lazy">
@@ -97,17 +98,18 @@ ${s.ids.map(id => `            <a href="#${byId[id].id}">${byId[id].nombre}</a>`
         </div>
       </div>`).join('\n');
 
-const fichas = EMPRESAS.map(e => `      <article class="ficha" id="${e.id}">
-        <div class="ficha-txt">
+const bandas = EMPRESAS.map(e => `    <article class="banda${e.provisional ? ' provisional' : ''}" id="${e.id}">
+      <img class="fondo" src="${e.foto}" alt="" loading="lazy">
+      <span class="velo"></span>
+      <div class="wrap">
+        <div class="banda-txt">
           <span class="ficha-num">${e.num} · ${e.sector}</span>
           <h3>${e.nombre}</h3>
           <p>${e.desc}</p>
           <a class="ficha-link" href="${e.href}" target="_blank" rel="noopener"><span class="fl">↗</span>${e.dom}</a>
         </div>
-        <a class="retrato" href="${e.href}" target="_blank" rel="noopener" aria-label="Abrir ${e.dom}">
-          ${escena(e, 'escena')}
-        </a>
-      </article>`).join('\n\n');
+      </div>
+    </article>`).join('\n');
 
 const html = `<!DOCTYPE html>
 <html lang="es">
@@ -190,8 +192,8 @@ const html = `<!DOCTYPE html>
   .card-img .velo,.escena .velo{position:absolute;inset:0;background:radial-gradient(74% 74% at 50% 48%,rgba(10,10,11,.28) 0%,rgba(10,10,11,.62) 100%)}
   .card-img .marca,.escena .marca{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:16% 17%}
   .card-img .marca img,.escena .marca img{width:auto;max-width:100%;max-height:100%;object-fit:contain;filter:drop-shadow(0 6px 26px rgba(0,0,0,.55));transition:filter .45s ease}
-  .card-img .marca img.aclarar,.escena .marca img.aclarar{filter:grayscale(1) invert(1) drop-shadow(0 6px 26px rgba(0,0,0,.55))}
-  .card:hover .marca img.aclarar,.retrato:hover .marca img.aclarar{filter:drop-shadow(0 6px 26px rgba(0,0,0,.55))}
+  .card-img .marca img.blanquear,.escena .marca img.blanquear{filter:brightness(0) invert(1) drop-shadow(0 6px 26px rgba(0,0,0,.55))}
+  .card:hover .marca img.blanquear:not(.fijo){filter:drop-shadow(0 6px 26px rgba(0,0,0,.55))}
   .card:hover .card-img .fondo,.retrato:hover .escena .fondo{filter:grayscale(0) brightness(.95) contrast(1);transform:scale(1.09)}
   .card:hover .card-img.provisional .fondo,.retrato:hover .escena.provisional .fondo{filter:grayscale(0) brightness(.85) contrast(1.02) blur(6px);transform:scale(1.16)}
   .card-pie{display:block;padding:16px 18px 18px;border-top:1px solid #1C1B19}
@@ -205,22 +207,27 @@ const html = `<!DOCTYPE html>
   .punto{width:6px;height:6px;border-radius:50%;background:#2E2C28;transition:background .3s,transform .3s}
   .punto.on{background:#F6F4F1;transform:scale(1.25)}
 
-  /* ---- Fichas ---- */
-  .fichas{display:flex;flex-direction:column;gap:clamp(60px,9vw,130px)}
-  .ficha{scroll-margin-top:110px;display:grid;grid-template-columns:1fr;gap:clamp(26px,4vw,46px);align-items:center}
-  @media (min-width:900px){
-    .ficha{grid-template-columns:1fr 1fr;gap:clamp(40px,5vw,92px)}
-    .ficha:nth-child(even) .ficha-txt{order:2}
-  }
-  .ficha-num{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#5A5750;display:block;margin-bottom:20px}
-  .ficha h3{margin:0 0 18px;font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(32px,4.8vw,58px);line-height:1.04;letter-spacing:-.012em}
-  .ficha p{margin:0 0 30px;font-size:16.5px;line-height:1.64;color:#A9A49A;max-width:44ch}
-  .ficha-link{text-decoration:none;display:inline-flex;align-items:center;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.06em;color:#F6F4F1;border-bottom:1px solid #2E2C28;padding-bottom:9px;transition:border-color .25s}
+  /* ---- Bandas por empresa: imagen a lo ancho, velo direccional y texto encima ---- */
+  .bandas{display:flex;flex-direction:column}
+  .banda{position:relative;isolation:isolate;overflow:hidden;scroll-margin-top:76px;display:flex;align-items:center;min-height:clamp(430px,64vh,660px);border-top:1px solid #1C1B19}
+  .banda:last-child{border-bottom:1px solid #1C1B19}
+  /* La foto va nitida y a color: el lado derecho de la banda no lleva texto, asi que ahi
+     se deja ver limpia. El velo solo hunde la izquierda, donde apoya el texto. */
+  .banda .fondo{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;object-position:center;filter:brightness(.94) contrast(1.02);transform:scale(1.02);transition:filter 1s ease,transform 1.6s ease}
+  .banda:hover .fondo{filter:brightness(1) contrast(1);transform:scale(1.05)}
+  .banda .velo{position:absolute;inset:0;z-index:-1;background:
+    linear-gradient(90deg,rgba(10,10,11,.97) 0%,rgba(10,10,11,.93) 30%,rgba(10,10,11,.62) 52%,rgba(10,10,11,.16) 78%,rgba(10,10,11,.04) 100%),
+    linear-gradient(180deg,rgba(10,10,11,.5) 0%,rgba(10,10,11,0) 22%,rgba(10,10,11,0) 74%,rgba(10,10,11,.5) 100%)}
+  @media (max-width:700px){ .banda .velo{background:linear-gradient(180deg,rgba(10,10,11,.62) 0%,rgba(10,10,11,.84) 48%,rgba(10,10,11,.94) 100%)} }
+  .banda .wrap{width:100%;padding-top:clamp(48px,7vw,90px);padding-bottom:clamp(48px,7vw,90px)}
+  .banda-txt{max-width:46ch}
+  .ficha-num{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#A9A49A;display:block;margin-bottom:20px}
+  .banda h3{margin:0 0 18px;font-family:'Playfair Display',serif;font-weight:400;font-size:clamp(34px,5.2vw,64px);line-height:1.03;letter-spacing:-.012em}
+  .banda p{margin:0 0 32px;font-size:16.5px;line-height:1.64;color:#C7C2B9;max-width:44ch}
+  .ficha-link{text-decoration:none;display:inline-flex;align-items:center;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.06em;color:#F6F4F1;border-bottom:1px solid #4A4740;padding-bottom:9px;transition:border-color .25s}
   .ficha-link:hover{border-color:#F6F4F1}
-  .ficha-link .fl{color:#7E7B73;transition:color .25s,transform .25s}
+  .ficha-link .fl{color:#A9A49A;transition:color .25s,transform .25s}
   .ficha-link:hover .fl{color:#F6F4F1;transform:translate(2px,-2px)}
-  .retrato{display:block;position:relative;overflow:hidden;background:#111110;border:1px solid #1C1B19;transition:border-color .3s}
-  .retrato:hover{border-color:#2E2C28}
 
   /* ---- Contacto y pie ---- */
   #contacto{border-top:1px solid #1C1B19;background:#0C0C0D}
@@ -301,15 +308,9 @@ ${tarjetas}
   </div>
 </section>
 
-<!-- ===== FICHAS ===== -->
-<section class="seccion" style="padding-top:clamp(56px,8vw,110px)">
-  <div class="wrap">
-    <div class="fichas">
-
-${fichas}
-
-    </div>
-  </div>
+<!-- ===== BANDAS POR EMPRESA ===== -->
+<section class="bandas">
+${bandas}
 </section>
 
 <!-- ===== CONTACTO ===== -->
