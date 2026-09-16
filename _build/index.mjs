@@ -32,6 +32,10 @@ const EMPRESAS = [
     desc:'Escuela de diseño con formación creativa y proyectos de sus estudiantes.' },
   { id:'e10', num:'10', nombre:'Caribes de Anzoátegui', sector:'Deporte', dom:'caribesbbc.com', href:'https://www.caribesbbc.com/',
     desc:'Club de béisbol profesional venezolano. Noticias, plantilla y calendario de la temporada.' },
+  { id:'e11', num:'11', nombre:'Alcoholes del Caribe', sector:'Licores', dom:'alcoholesdelcaribe.com', href:'https://www.alcoholesdelcaribe.com/',
+    desc:'Corporación productora de alcohol etílico de melaza a granel: cuatro grados rectificados hasta 96,30°GL, con control de calidad sobre trece parámetros.' },
+  { id:'e12', num:'12', nombre:'CILCCA', sector:'Licores', dom:'cilcca.com', href:'https://cilcca.com/',
+    desc:'Complejo Industrial Licorero del Centro: la plataforma detrás de los licores de Venezuela, con maquila, envejecimiento, tonelería y despacho internacional a gran escala.' },
 ];
 
 // Los textos van en columnas, asi que se mantienen cortos y de largo parejo entre si.
@@ -51,6 +55,9 @@ const SECTORES = [
   { num:'05', nombre:'Deporte',
     texto:'Béisbol profesional venezolano: temporada, plantilla y afición.',
     ids:['e10'] },
+  { num:'06', nombre:'Licores',
+    texto:'Producción de alcohol etílico y la plataforma industrial detrás de los licores del país.',
+    ids:['e11','e12'] },
 ];
 
 const byId = Object.fromEntries(EMPRESAS.map(e => [e.id, e]));
@@ -116,7 +123,7 @@ const html = `<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Nicolás Mangieri</title>
-<meta name="description" content="Diez empresas en ingeniería, seguros, salud, educación y deporte. Portafolio de Nicolás Mangieri.">
+<meta name="description" content="Doce empresas en ingeniería, seguros, salud, educación, deporte y licores. Portafolio de Nicolás Mangieri.">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -167,8 +174,8 @@ const html = `<!DOCTYPE html>
   .cabecera .conteo{font-size:12px;color:#5A5750}
 
   /* ---- Sectores: cinco columnas en fila, separadas por filete ---- */
-  .sectores{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:#1C1B19;border-top:1px solid #1C1B19;border-bottom:1px solid #1C1B19}
-  @media (max-width:1080px){ .sectores{grid-template-columns:repeat(3,1fr)} }
+  .sectores{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:#1C1B19;border-top:1px solid #1C1B19;border-bottom:1px solid #1C1B19}
+  @media (max-width:1120px){ .sectores{grid-template-columns:repeat(3,1fr)} }
   @media (max-width:680px){ .sectores{grid-template-columns:repeat(2,1fr)} }
   @media (max-width:420px){ .sectores{grid-template-columns:1fr} }
   .sector{background:#0A0A0B;display:flex;flex-direction:column;padding:clamp(22px,2.4vw,30px) clamp(14px,1.5vw,22px)}
@@ -274,7 +281,7 @@ ${PATHS}
     <svg class="mark" aria-hidden="true"><use href="#mark"></use></svg>
     <span class="name">Nicolás Mangieri</span>
   </div>
-  <p class="claim">Diez empresas en ingeniería, seguros, salud, educación y deporte.</p>
+  <p class="claim">Doce empresas en ingeniería, seguros, salud, educación, deporte y licores.</p>
   <a href="#sectores" class="cue mono">Recorrer <span>↓</span></a>
 </section>
 
@@ -282,8 +289,8 @@ ${PATHS}
 <section id="sectores" class="seccion">
   <div class="wrap">
     <div class="cabecera">
-      <h2 class="titulo">Cinco sectores</h2>
-      <span class="conteo mono">10 empresas</span>
+      <h2 class="titulo">Seis sectores</h2>
+      <span class="conteo mono">${EMPRESAS.length} empresas</span>
     </div>
     <div class="sectores">
 ${sectores}
@@ -296,7 +303,7 @@ ${sectores}
   <div class="wrap">
     <div class="cabecera">
       <h2 class="titulo">Las empresas</h2>
-      <span class="conteo mono">10 activas</span>
+      <span class="conteo mono">${EMPRESAS.length} activas</span>
     </div>
     <div class="carrusel">
       <div class="pista" id="pista">

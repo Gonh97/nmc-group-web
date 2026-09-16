@@ -4,8 +4,9 @@ Ficha del proyecto para cualquier sesión de Claude abierta en esta carpeta.
 
 ## Qué es
 Portafolio personal de **Nicolás Mangieri** (siglas NMC): landing de una página, tema oscuro,
-que reúne las 10 empresas de su grupo con el link a la web de cada una, más contacto. Hasta el 2026-09-02 el sitio se presentaba como "Grupo NMC"; se cambió a
-portafolio personal junto con el logo nuevo.
+que reúne las 12 empresas de su grupo con el link a la web de cada una, más contacto. Hasta el 2026-09-02 el sitio se presentaba como "Grupo NMC"; se cambió a
+portafolio personal junto con el logo nuevo. El 2026-09-16 se sumaron Alcoholes del Caribe y CILCCA
+(sector nuevo "Licores"), pasando de 10 a 12 empresas y de 5 a 6 sectores.
 
 ## Despliegue
 - **Repo:** Gonh97/nmc-group-web
@@ -16,9 +17,10 @@ portafolio personal junto con el logo nuevo.
 - HTML/CSS/JS puro (estilos inline en el `<head>` y en los elementos). Sin frameworks.
 - `index.html` — landing principal.
 - `manual-marca.html` — manual de marca. Ya NO está enlazado desde el sitio.
-- `assets/` — `logo-nmc.svg`, `favicon.svg`, `hero.jpg`, los 10 `logo-e**.png|svg` de cada empresa
-  y las 10 imágenes de banda `emp-e**.jpg` (1920 px de ancho, JPEG 78, ~170 KB cada una).
-  Las 10 `prev-*.png` quedaron sin uso: eran las capturas de web, 7,9 MB en total.
+- `assets/` — `logo-nmc.svg`, `favicon.svg`, `hero.jpg`, los 12 `logo-e**.png|svg` de cada empresa
+  y las 12 imágenes de banda `emp-e**.jpg` (≈1900 px de ancho, JPEG). Los conteos del sitio ("12
+  empresas", "12 activas") se generan con `${EMPRESAS.length}`, así que se actualizan solos al
+  agregar una empresa; lo que sí es texto fijo es el claim del hero y el título "Seis sectores".
 
 ## Sistema de diseño (tokens)
 Rediseño del 2026-09-02: registro editorial oscuro en blanco y negro, sin color de acento.
